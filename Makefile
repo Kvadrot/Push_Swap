@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -I./lib_ft -I./lib_ft_printf -I./get_next_line_final
+CFLAGS = -I./lib_ft -I./lib_ft_printf
 LDFLAGS = -L./lib_ft -l:libft.a -L./lib_ft_printf -lftprintf
 # Default sources
 SRCS = main.c

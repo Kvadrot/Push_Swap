@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/27 19:17:17 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:55:40 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,30 @@
 // In case of error, it must display "Error" 
 // followed by a ’\n’ on the standard error.
 //---------------------------------------------------------------//
-void ft_handle_error(int err_code, char *err_text)
+void ft_handle_error(int err_code)
 {
+	ft_printf("======= %d =======\n", err_code);
 	ft_printf("Error\n");
+}
+
+//TODO: ft_copy_complex_arr()
+//---------------------------------------------------------------//
+// coppies all elments from char ** into new char**
+//---------------------------------------------------------------//
+char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
+{
+	char	**copy_arr;
+	int		i;
+
+	i = 1;
+	copy_arr = (char **)malloc((argc - 1) * sizeof(char *));
+	if (!copy_arr)
+		return (NULL);
+
+	while (i < argc)
+	{
+		copy_arr = 
+	}
 }
 
 //TODO: ft_validate()
@@ -30,9 +51,9 @@ void ft_handle_error(int err_code, char *err_text)
 // INT limits
 // it should return the code status 200 is OK 4** is KO
 //---------------------------------------------------------------//
-int ft_validate()
+int ft_validate(char **argv)
 {
-
+	return (200);
 }
 
 //TODO: ft_process_input
@@ -43,6 +64,18 @@ int ft_validate()
 //---------------------------------------------------------------//
 int	ft_process_input(int argc, char **argv, t_numbers_list *list_a, t_numbers_list *list_b)
 {
+	int		**coonverted_arguments;
+	char	**preprocessed_arguments;
+
+	if (argc == 2 && ft_split(argv[1], ' ') != NULL)
+		preprocessed_arguments =  ft_split(argv[1], ' ');
+	else
+		//TODO: ft that copies values from argv into preprocessed_arguments;
+	if (ft_validate(preprocessed_arguments) == 400)
+	{
+		ft_handle_error(500);
+		return (500);
+	}
 	
 	return (200);
 }
@@ -68,7 +101,7 @@ int main(int argc, char **argv)
 		free(list_a);
 		return (2);
 	}
-	process_input(argc, argv, &list_a, &list_b);
+	ft_process_input(argc, argv, list_a, list_b);
 	
 	return (0);
 }
