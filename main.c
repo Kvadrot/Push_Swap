@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/27 19:55:40 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:49:53 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,6 @@ void ft_handle_error(int err_code)
 {
 	ft_printf("======= %d =======\n", err_code);
 	ft_printf("Error\n");
-}
-
-//TODO: ft_copy_complex_arr()
-//---------------------------------------------------------------//
-// coppies all elments from char ** into new char**
-//---------------------------------------------------------------//
-char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
-{
-	char	**copy_arr;
-	int		i;
-
-	i = 1;
-	copy_arr = (char **)malloc((argc - 1) * sizeof(char *));
-	if (!copy_arr)
-		return (NULL);
-
-	while (i < argc)
-	{
-		copy_arr = 
-	}
 }
 
 //TODO: ft_validate()
