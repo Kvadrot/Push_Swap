@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 15:44:36 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:55:31 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,44 @@ void ft_handle_error(int err_code)
 	ft_printf("Error\n");
 }
 
-//TODO: ft_validate_symbols()
+//TODO: ft_is_valid_limts()
 //---------------------------------------------------------------//
 // func that validates input:
 // input must be between INT_MAX INT_MIN
 //---------------------------------------------------------------//
 bool	ft_is_valid_limts(char **args)
 {
-	int	max_int;
-	int	min_int;
+	char	*max_int;
+	char	*min_int;
+	int		i;
 
-	max_int = 2147483647;
-	min_int = -2147483648;
+	i = 0;
+	max_int = "2147483647";
+	min_int = "-2147483648";
 
-	while (args)
+	while (args[i])
 	{
-
-	}	
+		if (args[i][0] == '-')
+		{
+			if (ft_strlen(args[i]) > ft_strlen(min_int))
+				return (false);
+			else if (ft_strlen(min_int) == ft_strlen(args[i]) && ft_memcmp(min_int, args[i], ft_strlen(min_int)) < 0)
+				return (false);
+		}
+		else if (args[i][0] == '+')
+		{
+			if (ft_strlen(args[i]) > ft_strlen(max_int) + 1)
+				return (false);
+			else if (ft_strlen(max_int) + 1 == ft_strlen(args[i]) && ft_memcmp(max_int, args[i], ft_strlen(max_int) + 1) < 0)
+				return (false);
+		} 
+		else if (ft_strlen(args[i]) > ft_strlen(max_int))
+				return (false);
+		else if (ft_strlen(max_int) == ft_strlen(args[i]) && ft_memcmp(max_int, args[i], ft_strlen(max_int)) < 0)
+				return (false);
+		ft_printf("limit requirments are met for: %s\n", args[i]);
+		i++;
+	}
 	return (true);
 }
 
