@@ -6,12 +6,11 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 11:20:40 by itykhono          #+#    #+#             */
-/*   Updated: 2024/05/19 14:49:07 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:46:25 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 static char	**ft_free_split(char **split_result, int words_amount)
 {
 	int	i;

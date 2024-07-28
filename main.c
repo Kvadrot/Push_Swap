@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/27 20:49:53 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:44:36 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,85 @@ void ft_handle_error(int err_code)
 	ft_printf("Error\n");
 }
 
+//TODO: ft_validate_symbols()
+//---------------------------------------------------------------//
+// func that validates input:
+// input must be between INT_MAX INT_MIN
+//---------------------------------------------------------------//
+bool	ft_is_valid_limts(char **args)
+{
+	int	max_int;
+	int	min_int;
+
+	max_int = 2147483647;
+	min_int = -2147483648;
+
+	while (args)
+	{
+
+	}	
+	return (true);
+}
+
+//TODO: ft_validate_symbols()
+//---------------------------------------------------------------//
+// func that validates input:
+// ONLY 0123456789
+//---------------------------------------------------------------//
+bool	ft_is_valid_symbols(char **args)
+{
+	int	ind;
+	int	sym_ind;
+
+	ind = 0;
+	sym_ind = 0;
+	while (args[ind] != NULL)
+	{
+		if ((args[ind][sym_ind] == '-' || args[ind][sym_ind] == '+') && sym_ind == 0)
+			sym_ind++;
+		while (args[ind][sym_ind] != '\0')
+		{
+			if (ft_isdigit(args[ind][sym_ind]) == false)
+				return (false);
+			sym_ind++;
+		}
+		sym_ind = 0;
+		ind++;
+	}
+	return (true);
+}
+
+
 //TODO: ft_validate()
 //---------------------------------------------------------------//
 // func that validates input:
 // NO duplicates
 // ONLY Numbers
 // INT limits
-// it should return the code status 200 is OK 4** is KO
+// it should return the arr of Int or NULL
 //---------------------------------------------------------------//
-int ft_validate(char **argv)
+int	*ft_validate_and_convert(char **arguments)
 {
-	return (200);
+	int	i;
+	int	*result;
+
+	i = 0;
+	if (!arguments)
+		return (NULL);
+	if (ft_is_valid_symbols(arguments) == false)
+		return (NULL);
+	if (ft_is_valid_limts(arguments) == false)
+		return (NULL);
+	result = (int *)malloc(sizeof(int) * ft_get_size_of_super_arr(arguments));
+	if (!result)
+		return (NULL);
+
+	while (arguments[i])
+	{
+		atoi(arguments[i]);
+		i++;
+	}
+	return (result);
 }
 
 //TODO: ft_process_input
@@ -44,14 +112,16 @@ int ft_validate(char **argv)
 //---------------------------------------------------------------//
 int	ft_process_input(int argc, char **argv, t_numbers_list *list_a, t_numbers_list *list_b)
 {
-	int		**coonverted_arguments;
+	int		*coonverted_arguments;
 	char	**preprocessed_arguments;
-
-	if (argc == 2 && ft_split(argv[1], ' ') != NULL)
-		preprocessed_arguments =  ft_split(argv[1], ' ');
+	if (argc == 2)
+		preprocessed_arguments = ft_split(argv[1], ' ');
 	else
-		//TODO: ft that copies values from argv into preprocessed_arguments;
-	if (ft_validate(preprocessed_arguments) == 400)
+		preprocessed_arguments = ft_copy_complex_arr(argc, argv);
+
+	coonverted_arguments = ft_validate_and_convert(preprocessed_arguments);
+
+	if (!coonverted_arguments)
 	{
 		ft_handle_error(500);
 		return (500);
@@ -66,7 +136,6 @@ int	ft_process_input(int argc, char **argv, t_numbers_list *list_a, t_numbers_li
 // not display anything and give the
 // prompt back.
 //---------------------------------------------------------------//
-
 int main(int argc, char **argv)
 {
 	t_numbers_list	*list_a;
@@ -85,3 +154,4 @@ int main(int argc, char **argv)
 	
 	return (0);
 }
+

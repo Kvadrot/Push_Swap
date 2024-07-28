@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/27 20:48:53 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:35:38 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,26 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
 	copy_arr[argc - 1] = NULL;
 	return (copy_arr);
 }
+
+//TODO: ft_get_size_of_super_arr()
+//---------------------------------------------------------------//
+// Returns back size of elemets in 2D array
+//---------------------------------------------------------------//
+int	ft_get_size_of_super_arr(char **super_arr)
+{
+	int	i;
+
+	i = 0;
+	if (!super_arr)
+		return (i);
+	else
+	{
+		while (super_arr[i] != NULL)
+			i++; 
+	}
+	return (i);
+}
+
 /*
 int main(int argc, char **argv)
 {
