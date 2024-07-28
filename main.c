@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 16:55:31 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:29:14 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ bool	ft_is_valid_symbols(char **args)
 // INT limits
 // it should return the arr of Int or NULL
 //---------------------------------------------------------------//
-int	*ft_validate_and_convert(char **arguments)
+int	*ft_validate_and_convert(char **arguments, int *processed_size)
 {
 	int	i;
 	int	*result;
@@ -113,15 +113,16 @@ int	*ft_validate_and_convert(char **arguments)
 		return (NULL);
 	if (ft_is_valid_limts(arguments) == false)
 		return (NULL);
-	result = (int *)malloc(sizeof(int) * ft_get_size_of_super_arr(arguments));
+	result = (int *)malloc(sizeof(int) * ft_get_size_of_super_arr(arguments) + 1);
 	if (!result)
 		return (NULL);
 
 	while (arguments[i])
 	{
-		atoi(arguments[i]);
+		result[i] = atoi(arguments[i]);
 		i++;
 	}
+	*processed_size = i;
 	return (result);
 }
 
@@ -133,21 +134,34 @@ int	*ft_validate_and_convert(char **arguments)
 //---------------------------------------------------------------//
 int	ft_process_input(int argc, char **argv, t_numbers_list *list_a, t_numbers_list *list_b)
 {
+	int		processed_size;
 	int		*coonverted_arguments;
 	char	**preprocessed_arguments;
+	int		ind;
 	if (argc == 2)
 		preprocessed_arguments = ft_split(argv[1], ' ');
 	else
 		preprocessed_arguments = ft_copy_complex_arr(argc, argv);
 
-	coonverted_arguments = ft_validate_and_convert(preprocessed_arguments);
+	coonverted_arguments = ft_validate_and_convert(preprocessed_arguments, &processed_size);
 
 	if (!coonverted_arguments)
 	{
 		ft_handle_error(500);
 		return (500);
 	}
-	
+
+	int i = 0;
+	while (i < processed_size)
+	{
+		printf("successed number: %d\n", coonverted_arguments[i]);
+		i++;
+	}
+
+	// while (preprocessed_arguments[ind++] != NULL)
+	// 	free(preprocessed_arguments);
+	// free(preprocessed_arguments);
+	// free(coonverted_arguments);
 	return (200);
 }
 
@@ -172,7 +186,8 @@ int main(int argc, char **argv)
 		return (2);
 	}
 	ft_process_input(argc, argv, list_a, list_b);
-	
+	free(list_a);
+	free(list_b);
 	return (0);
 }
 
