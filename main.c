@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 17:29:14 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:36:31 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,36 @@
 // In case of error, it must display "Error" 
 // followed by a ’\n’ on the standard error.
 //---------------------------------------------------------------//
-void ft_handle_error(int err_code)
+void	ft_handle_error(int err_code)
 {
 	ft_printf("======= %d =======\n", err_code);
 	ft_printf("Error\n");
+}
+
+//TODO: ft_is_valid_duplicates()
+//---------------------------------------------------------------//
+// func that validates input:
+// NO DUPLICATES are allowed
+//---------------------------------------------------------------//
+bool	ft_is_valid_duplicates(int *numbers, int numbers_amount)
+{
+	int	i;
+	int	ind;
+
+	i = 0;
+	while (i < numbers_amount)
+	{
+		ind = i + 1;
+		while (ind < numbers_amount)
+		{
+			if (numbers[i] == numbers[ind])
+				return (false);
+			ind++;
+		}
+		ft_printf("there are no duplicates for %d \n", numbers[i]);
+		i++;
+	}
+	return (true);
 }
 
 //TODO: ft_is_valid_limts()
@@ -123,6 +149,8 @@ int	*ft_validate_and_convert(char **arguments, int *processed_size)
 		i++;
 	}
 	*processed_size = i;
+	if (ft_is_valid_duplicates(result, i) == false)
+		return (NULL);
 	return (result);
 }
 
@@ -157,11 +185,13 @@ int	ft_process_input(int argc, char **argv, t_numbers_list *list_a, t_numbers_li
 		printf("successed number: %d\n", coonverted_arguments[i]);
 		i++;
 	}
-
-	// while (preprocessed_arguments[ind++] != NULL)
-	// 	free(preprocessed_arguments);
-	// free(preprocessed_arguments);
-	// free(coonverted_arguments);
+	while (preprocessed_arguments[ind] != NULL)
+	{
+		free(preprocessed_arguments[ind]);
+		ind++;
+	}
+	free(preprocessed_arguments);
+	free(coonverted_arguments);
 	return (200);
 }
 

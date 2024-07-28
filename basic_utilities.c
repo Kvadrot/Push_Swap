@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 17:28:35 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:31:55 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
 		return (NULL);
 	while (i < argc)
 	{
-		temp = (char *)malloc(sizeof(char) * ft_strlen(arr_of_arr[i] + 1));
+		temp = (char *)malloc(sizeof(char) * ft_strlen(arr_of_arr[i]) + 1);
 		if (!temp)
 			{
 				while (copy_arr[i])
@@ -40,7 +40,6 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
 			}
 		ft_strlcpy(temp, arr_of_arr[i], ft_strlen(arr_of_arr[i]) + 1);
 		copy_arr[i - 1] = temp;
-		free(temp);
 		i++;
 	}
 	copy_arr[argc - 1] = NULL;
@@ -66,19 +65,19 @@ int	ft_get_size_of_super_arr(char **super_arr)
 	return (i);
 }
 
-/*
-int main(int argc, char **argv)
-{
-	int i;
-	char **test = ft_copy_complex_arr(argc, argv);
-	i = 0;
-	while (test[i])
-	{
-		ft_printf("%s\n", test[i]);
-		free(test[i]);
-		i++;
-	}
-	free(test);
-	return (0);
-}
-*/
+
+// int main(int argc, char **argv)
+// {
+// 	int i;
+// 	char **test = ft_copy_complex_arr(argc, argv);
+// 	i = 0;
+// 	while (test[i])
+// 	{
+// 		ft_printf("%s\n", test[i]);
+// 		free(test[i]);
+// 		i++;
+// 	}
+// 	free(test);
+// 	return (0);
+// }
+
