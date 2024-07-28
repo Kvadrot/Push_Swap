@@ -5,12 +5,11 @@ CC = gcc
 CFLAGS = -I./lib_ft -I./lib_ft_printf
 LDFLAGS = -L./lib_ft -l:libft.a -L./lib_ft_printf -lftprintf
 # Default sources
-SRCS = main.c basic_utilities.c
+SRCS = main.c basic_utilities.c validation.c
 OBJS = $(SRCS:.c=.o)
 
 # Program Name
 NAME = push_swap.out
-BONUS_NAME = pipex_bonus
 
 # Libft src
 LIBFT = ./lib_ft/libft.a

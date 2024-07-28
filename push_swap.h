@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 15:35:49 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:39:32 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef struct t_numbers_list {
 }	t_numbers_list;
 
 int	ft_get_size_of_super_arr(char **super_arr);
+bool	ft_is_valid_duplicates(int *numbers, int numbers_amount);
 char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
+bool	ft_is_valid_limts(char **args);
+bool	ft_is_valid_symbols(char **args);
+int	*ft_validate_and_convert(char **arguments, int *processed_size);
+
+
+
+
 
 #endif
