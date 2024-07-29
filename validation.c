@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:37:53 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 18:39:36 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:52:22 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	ft_is_valid_duplicates(int *numbers, int numbers_amount)
 				return (false);
 			ind++;
 		}
-		ft_printf("there are no duplicates for %d \n", numbers[i]);
+		// ft_printf("there are no duplicates for %d \n", numbers[i]);
 		i++;
 	}
 	return (true);
@@ -73,7 +73,7 @@ bool	ft_is_valid_limts(char **args)
 				return (false);
 		else if (ft_strlen(max_int) == ft_strlen(args[i]) && ft_memcmp(max_int, args[i], ft_strlen(max_int)) < 0)
 				return (false);
-		ft_printf("limit requirments are met for: %s\n", args[i]);
+		// ft_printf("limit requirments are met for: %s\n", args[i]);
 		i++;
 	}
 	return (true);

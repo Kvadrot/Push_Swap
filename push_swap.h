@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 18:39:32 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:06:58 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct t_numbers_list {
 	int				number;
-	struct t_list	*next;
-	struct t_list	*prev;
+	struct t_numbers_list	*next;
+	struct t_numbers_list	*prev;
 }	t_numbers_list;
 
 int	ft_get_size_of_super_arr(char **super_arr);
@@ -32,7 +32,8 @@ bool	ft_is_valid_limts(char **args);
 bool	ft_is_valid_symbols(char **args);
 int	*ft_validate_and_convert(char **arguments, int *processed_size);
 
-
+//Debug Fucntions
+void	ft_debug_num_printer(t_numbers_list *list);
 
 
 
