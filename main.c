@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 19:26:50 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:28:45 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,21 +149,12 @@ void	ft_rotate_stack(t_numbers_list **origin_list)
 	temp_head->prev = *origin_list;
 }
 
-//TODO: ft_push_a
-//---------------------------------------------------------------//
-// pa (push a): Take the first element at the top of b and put it at the top of a.
-// Do nothing if b is empty
-//---------------------------------------------------------------//
-void	ft_push_a(t_numbers_list *list_a, t_numbers_list *list_b)
-{
-}
-
 //TODO: ft_push_b
 //---------------------------------------------------------------//
 // pb (push b): Take the first element at the top of a and put it at the top of b.
 // Do nothing if a is empty.
 //---------------------------------------------------------------//
-void	ft_push_b(t_numbers_list **from_list, t_numbers_list **to_list)
+void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 {
 	t_numbers_list *temp_head;
 
@@ -190,9 +181,9 @@ int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 {
 	ft_rotate_stack(origin_list_a);
 	ft_debug_num_printer(*origin_list_a, "after first RA");
-	ft_push_b(origin_list_a, origin_list_b);
+	ft_push(origin_list_a, origin_list_b);
 	ft_debug_num_printer(*origin_list_a, "A Stack after first push");
-	ft_push_b(origin_list_b, origin_list_a);
+	ft_push(origin_list_b, origin_list_a);
 	ft_debug_num_printer(*origin_list_a, "A Stack after second push");
 	// ft_debug_num_printer(*origin_list_b, "B Stack after first push");
 
