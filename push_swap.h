@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 17:49:07 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:50:19 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	ft_is_valid_symbols(char **args);
 int		*ft_validate_and_convert(char **arguments, int *processed_size);
 
 //Debug Fucntions
-void	ft_debug_num_printer(t_numbers_list *list);
+void	ft_debug_num_printer(t_numbers_list *list, char *separator_text);
+
 
 
 

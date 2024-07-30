@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 18:08:42 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:52:08 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		free(preprocessed_arguments[ind]);
 		ind++;
 	}
-	ft_debug_num_printer(*list_a);
+	ft_debug_num_printer(*list_a, "initial Stack");
 	free(preprocessed_arguments);
 	free(coonverted_arguments);
 	if (!list_a)
@@ -126,18 +126,27 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 	return (200);
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//	BASIC NAVIGATION FOR A STACK 
+//	BASIC PUSH_SWAP COMMANDS 
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//TODO: ft_rotate_a
+//TODO: ft_rotate_stack
 //---------------------------------------------------------------//
 // ra (rotate a): Shift up all elements of stack a by 1.
 // The first element becomes the last one.
 //---------------------------------------------------------------//
-t_numbers_list	*ft_rotate_a(t_numbers_list *origin_list)
+void	ft_rotate_stack(t_numbers_list **origin_list)
 {
-	t_numbers_list	*sorted_arr;
+	t_numbers_list	*temp_head;
 
-	return (sorted_arr);
+	temp_head = *origin_list;
+	*origin_list = (*origin_list)->next;
+	(*origin_list)->prev = NULL;
+	temp_head->next = NULL;
+	while ((*origin_list)->next)
+	{
+		origin_list = &((*origin_list)->next);
+	}
+	(*origin_list)->next = temp_head;
+	temp_head->prev = *origin_list;
 }
 
 //TODO: ft_push_a
@@ -145,11 +154,8 @@ t_numbers_list	*ft_rotate_a(t_numbers_list *origin_list)
 // pa (push a): Take the first element at the top of b and put it at the top of a.
 // Do nothing if b is empty
 //---------------------------------------------------------------//
-t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
+void	ft_push_a(t_numbers_list *list_a, t_numbers_list *list_b)
 {
-	t_numbers_list	*sorted_arr;
-
-	return (sorted_arr);
 }
 
 //TODO: ft_push_b
@@ -157,11 +163,11 @@ t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
 // pb (push b): Take the first element at the top of a and put it at the top of b.
 // Do nothing if a is empty.
 //---------------------------------------------------------------//
-t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
+void	ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
 {
 	t_numbers_list	*sorted_arr;
 
-	return (sorted_arr);
+	// return (sorted_arr);
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -172,7 +178,9 @@ t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
 //---------------------------------------------------------------//
 int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 {
-
+	ft_rotate_stack(origin_list_a);
+	ft_debug_num_printer(*origin_list_a, "after first RA");
+	return (200);
 }
 
 // main
