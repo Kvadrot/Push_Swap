@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 18:52:08 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:26:50 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,21 @@ void	ft_push_a(t_numbers_list *list_a, t_numbers_list *list_b)
 // pb (push b): Take the first element at the top of a and put it at the top of b.
 // Do nothing if a is empty.
 //---------------------------------------------------------------//
-void	ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
+void	ft_push_b(t_numbers_list **from_list, t_numbers_list **to_list)
 {
-	t_numbers_list	*sorted_arr;
+	t_numbers_list *temp_head;
 
-	// return (sorted_arr);
+	if (!from_list || !*from_list) // Check if list_a is empty
+		return;
+	temp_head = *from_list;
+		*from_list = (*from_list)->next;
+	if (*from_list)
+		(*from_list)->prev = NULL;
+	temp_head->next = *to_list;
+	if (*to_list)
+		(*to_list)->prev = temp_head;
+	*to_list = temp_head;
+	temp_head->prev = NULL;
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -180,6 +190,12 @@ int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 {
 	ft_rotate_stack(origin_list_a);
 	ft_debug_num_printer(*origin_list_a, "after first RA");
+	ft_push_b(origin_list_a, origin_list_b);
+	ft_debug_num_printer(*origin_list_a, "A Stack after first push");
+	ft_push_b(origin_list_b, origin_list_a);
+	ft_debug_num_printer(*origin_list_a, "A Stack after second push");
+	// ft_debug_num_printer(*origin_list_b, "B Stack after first push");
+
 	return (200);
 }
 
