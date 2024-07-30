@@ -6,12 +6,13 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/28 18:31:55 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:08:28 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// ft_copy_complex_arr
 //---------------------------------------------------------------//
 // coppies all elments from char ** into new char**
 //---------------------------------------------------------------//
@@ -46,7 +47,7 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr)
 	return (copy_arr);
 }
 
-//TODO: ft_get_size_of_super_arr()
+// ft_get_size_of_super_arr()
 //---------------------------------------------------------------//
 // Returns back size of elemets in 2D array
 //---------------------------------------------------------------//

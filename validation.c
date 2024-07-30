@@ -6,13 +6,13 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:37:53 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/29 17:52:22 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:08:10 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-//TODO: ft_is_valid_duplicates()
+// ft_is_valid_duplicates()
 //---------------------------------------------------------------//
 // func that validates input:
 // NO DUPLICATES are allowed
@@ -38,7 +38,7 @@ bool	ft_is_valid_duplicates(int *numbers, int numbers_amount)
 	return (true);
 }
 
-//TODO: ft_is_valid_limts()
+// ft_is_valid_limts()
 //---------------------------------------------------------------//
 // func that validates input:
 // input must be between INT_MAX INT_MIN
@@ -79,7 +79,7 @@ bool	ft_is_valid_limts(char **args)
 	return (true);
 }
 
-//TODO: ft_validate_symbols()
+// ft_validate_symbols()
 //---------------------------------------------------------------//
 // func that validates input:
 // ONLY 0123456789
@@ -108,7 +108,7 @@ bool	ft_is_valid_symbols(char **args)
 }
 
 
-//TODO: ft_validate()
+// ft_validate()
 //---------------------------------------------------------------//
 // func that validates input:
 // NO duplicates

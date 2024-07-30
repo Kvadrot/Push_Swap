@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/29 18:07:07 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:08:42 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_handle_error(int err_code)
 	ft_printf("Error\n");
 }
 
-//TODO: ft_clean_up_list
+// ft_clean_up_list
 //---------------------------------------------------------------//
 // Free up the linked list
 // One by one from last to first
@@ -43,7 +43,7 @@ void	ft_clean_up_list(t_numbers_list *list)
 	}
 }
 
-//TODO: ft_init_linkedlist
+// ft_init_linkedlist
 //---------------------------------------------------------------//
 //t_numbers_list
 //---------------------------------------------------------------//
@@ -82,7 +82,7 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 	return (resulting_list); 
 }
 
-//TODO: ft_process_input
+// ft_process_input
 //---------------------------------------------------------------//
 // func that validates input (splits if necessary) 
 // all in all it might create numbers_linked_list
@@ -125,10 +125,59 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		return (501);
 	return (200);
 }
-
-//TODO: main
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//	BASIC NAVIGATION FOR A STACK 
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//TODO: ft_rotate_a
 //---------------------------------------------------------------//
-// If no parameters are specified, the program must
+// ra (rotate a): Shift up all elements of stack a by 1.
+// The first element becomes the last one.
+//---------------------------------------------------------------//
+t_numbers_list	*ft_rotate_a(t_numbers_list *origin_list)
+{
+	t_numbers_list	*sorted_arr;
+
+	return (sorted_arr);
+}
+
+//TODO: ft_push_a
+//---------------------------------------------------------------//
+// pa (push a): Take the first element at the top of b and put it at the top of a.
+// Do nothing if b is empty
+//---------------------------------------------------------------//
+t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
+{
+	t_numbers_list	*sorted_arr;
+
+	return (sorted_arr);
+}
+
+//TODO: ft_push_b
+//---------------------------------------------------------------//
+// pb (push b): Take the first element at the top of a and put it at the top of b.
+// Do nothing if a is empty.
+//---------------------------------------------------------------//
+t_numbers_list	*ft_push_b(t_numbers_list *list_a, t_numbers_list *list_b)
+{
+	t_numbers_list	*sorted_arr;
+
+	return (sorted_arr);
+}
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+//TODO: ft_sort_lists
+//---------------------------------------------------------------//
+// Main sorting function
+// in case of error returns ERROR ID
+//---------------------------------------------------------------//
+int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+{
+
+}
+
+// main
+//---------------------------------------------------------------//
+// If no parameters are specified, the programm must
 // not display anything and give the
 // prompt back.
 //---------------------------------------------------------------//
@@ -140,7 +189,10 @@ int main(int argc, char **argv)
 	list_a = NULL;
 	list_b = NULL;
 
-	ft_process_input(argc, argv, &list_a, &list_b);
+	if (ft_process_input(argc, argv, &list_a, &list_b) < 0)
+		return (1);
+	ft_sort_list(&list_a, &list_b);
+
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
 	return (0);
