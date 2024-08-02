@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 19:55:09 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:58:33 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	t_numbers_list	*smallest_node;
 	t_numbers_list	*start_a_node;
 
-	if (*origin_list_a == NULL)
-		return (-300);
-	if ((*origin_list_a)->next == NULL)
-		return (200);
+	// if (*origin_list_a == NULL)
+	// 	return (-300);
+	// if ((*origin_list_a)->next == NULL)
+	// 	return (200);
 	ft_rotate_stack(origin_list_a);
 	ft_debug_num_printer(*origin_list_a, "after first RA");
 	ft_push(origin_list_a, origin_list_b);

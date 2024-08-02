@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -I./lib_ft -I./lib_ft_printf
 LDFLAGS = -L./lib_ft -l:libft.a -L./lib_ft_printf -lftprintf
 # Default sources
-SRCS = main.c basic_utilities.c validation.c debug_utilities.c navlist_commands.c sort_fts.c
+SRCS = main.c basic_utilities.c validation.c debug_utilities.c navigation_commands.c sort_fts.c
 OBJS = $(SRCS:.c=.o)
 
 # Program Name
