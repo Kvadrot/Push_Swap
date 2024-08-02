@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 21:32:49 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:36:10 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	// ft_printf("is_sorted for stack a = %d\n", ft_is_sorted(origin_list_a));
 
 	// ft_find_smallest_node TEST
-	// ft_printf("the smallest node is with ind: %d\n", ft_find_smallest_node(origin_list_a));
+	// ft_printf("the smallest node is with indx: %d\n", ft_find_smallest_node(origin_list_a));
 //
+	
 }

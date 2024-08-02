@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 20:28:54 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:55:16 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 //---------------------------------------------------------------//
 // func that validates input (splits if necessary) 
 // all in all it might create numbers_linked_list
-// it should return the code status 200:OK - 4**:KO
+// it should return:
+// OK: amount of nodes inside the List
+// KO: -5**
 //---------------------------------------------------------------//
 int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_list **list_b)
 {
@@ -84,15 +86,18 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 	coonverted_arguments = ft_validate_and_convert(preprocessed_arguments, &processed_size);
 	if (!coonverted_arguments)
 	{
-		ft_handle_error(500);
-		return (500);
+		ft_handle_error(-500);
+		return (-500);
 	}
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// TEST PART
 	int i = 0;
 	while (i < processed_size)
 	{
 		printf("successed convertion for: %d\n", coonverted_arguments[i]);
 		i++;
 	}
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	*list_a = ft_init_linkedlist(coonverted_arguments, processed_size);
 	ind = 0;
 	while (preprocessed_arguments[ind] != NULL)
@@ -104,8 +109,8 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 	free(preprocessed_arguments);
 	free(coonverted_arguments);
 	if (!list_a)
-		return (501);
-	return (200);
+		return (-501);
+	return (ind);
 }
 
 // main
@@ -124,8 +129,13 @@ int main(int argc, char **argv)
 
 	if (ft_process_input(argc, argv, &list_a, &list_b) < 0)
 		return (1);
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// TEST PART
+	// int a = ft_process_input(argc, argv, &list_a, &list_b);
+	// int test = ft_list_length(list_a);
+	// ft_printf("init func gives: %d nodes, ft_list_length gives: %d\n", a, test);
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	ft_sort_list(&list_a, &list_b);
-
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
 	return (0);

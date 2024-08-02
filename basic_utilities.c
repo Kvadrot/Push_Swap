@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 17:41:56 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:53:37 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,26 @@ void	ft_clean_up_list(t_numbers_list *list)
 	}
 }
 
+// ft_list_length()
+//---------------------------------------------------------------//
+// returns amount of nodes inside of given List
+//---------------------------------------------------------------//
+int	ft_list_length(t_numbers_list *list)
+{
+    t_numbers_list	*temp;
+	int				length;
+
+	if (!list)
+		return (0);
+	length = 1;
+	temp = list;
+	while (temp->next)
+	{
+		temp = temp->next;
+		length++;
+	}
+	return (length);
+}
 
 // int main(int argc, char **argv)
 // {

@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 20:34:16 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:48:26 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		*ft_validate_and_convert(char **arguments, int *processed_size);
 
 
 // Basic_utilities
+int		ft_list_length(t_numbers_list *list);
 void	ft_clean_up_list(t_numbers_list *list);
 int		ft_get_size_of_super_arr(char **super_arr);
 char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
