@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 17:44:44 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:49:31 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_reverse_rotate_stack(t_numbers_list **origin_list);
 
 
 // Sort_fts
-int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
+void	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 
 //Debug Fucntions
 void	ft_debug_num_printer(t_numbers_list *list, char *separator_text);
