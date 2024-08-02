@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 19:49:31 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:34:16 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 # include "./lib_ft_printf/ft_printf.h"
 
 typedef struct t_numbers_list {
-	int				number;
 	struct t_numbers_list	*next;
 	struct t_numbers_list	*prev;
+	int						number;
+	int						list_indx;
 }	t_numbers_list;
+
 
 // Validation_fts
 bool	ft_is_valid_duplicates(int *numbers, int numbers_amount);

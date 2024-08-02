@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 17:42:42 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:28:54 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 	if (!head_list)
 		return (NULL);
 	head_list->number = converted_numbers[0];
+	head_list->list_indx = 0;
 	head_list->prev = NULL;
 	resulting_list = head_list;
 	i = 1;
@@ -52,6 +53,7 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 			return (NULL);
 		}
 		temp_list->number = converted_numbers[i];
+		temp_list->list_indx = i;
 		temp_list->prev = head_list;
 		temp_list->next = NULL;
 		head_list->next = temp_list;
