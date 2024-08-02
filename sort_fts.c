@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 19:58:33 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:12:41 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_is_sorted(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
  //TODO: ft_sort_list
 //---------------------------------------------------------------//
 // Main sorting function
-// Sorting algotythm 
+// Sorting algotrythm 
 // 1) looks for the smallest num on the A_stack
 // 2) depending on index of the node makes descision which
 // navigation command (RA, RRA) takes less times to move
@@ -47,10 +47,12 @@ void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	// 	return (-300);
 	// if ((*origin_list_a)->next == NULL)
 	// 	return (200);
-	ft_rotate_stack(origin_list_a);
-	ft_debug_num_printer(*origin_list_a, "after first RA");
-	ft_push(origin_list_a, origin_list_b);
-	ft_debug_num_printer(*origin_list_a, "A Stack after push_b");
-	ft_push(origin_list_b, origin_list_a);
-	ft_debug_num_printer(*origin_list_a, "A Stack after push_a");
+	// ft_rotate_stack(origin_list_a);
+	// ft_debug_num_printer(*origin_list_a, "after first RA");
+	// ft_push(origin_list_a, origin_list_b);
+	// ft_debug_num_printer(*origin_list_a, "A Stack after push_b");
+	// ft_push(origin_list_b, origin_list_a);
+	// ft_debug_num_printer(*origin_list_a, "A Stack after push_a");
+	ft_reverse_rotate_stack(origin_list_a);
+	ft_debug_num_printer(*origin_list_a, "after RRA");
 }

@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 19:57:43 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:20:03 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@
 void	ft_reverse_rotate_stack(t_numbers_list **origin_list)
 {
 	t_numbers_list	*temp_head;
+	t_numbers_list	*last_node;
+
+	if (*origin_list == NULL || (*origin_list)->next == NULL)
+		return;
+
+	temp_head = *origin_list;
+	last_node = *origin_list;
+	while (last_node->next)
+		last_node = last_node->next;
+	last_node->prev->next = NULL;
+	last_node->prev = NULL;
+	last_node->next = temp_head;
+	temp_head->prev = last_node;
+	*origin_list = last_node;
 }
 
 //TODO: ft_rotate_stack
