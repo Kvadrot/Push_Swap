@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 18:08:28 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:41:56 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,26 @@ int	ft_get_size_of_super_arr(char **super_arr)
 			i++; 
 	}
 	return (i);
+}
+
+// ft_clean_up_list
+//---------------------------------------------------------------//
+// Free up the linked list
+// One by one from last to first
+// Examlpe:
+// 0 <- 10
+//---------------------------------------------------------------//
+void	ft_clean_up_list(t_numbers_list *list)
+{
+    t_numbers_list	*temp;
+
+	while (list)
+	{
+		ft_printf("list.num = %d is free\n", list->number);
+		temp = list->next;
+		free(list);
+		list = temp;
+	}
 }
 
 

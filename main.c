@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 19:28:45 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:42:42 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,9 @@ void	ft_handle_error(int err_code)
 	ft_printf("Error\n");
 }
 
-// ft_clean_up_list
-//---------------------------------------------------------------//
-// Free up the linked list
-// One by one from last to first
-// Examlpe:
-// 0 <- 10
-//---------------------------------------------------------------//
-void	ft_clean_up_list(t_numbers_list *list)
-{
-    t_numbers_list	*temp;
-
-	while (list)
-	{
-		ft_printf("list.num = %d is free\n", list->number);
-		temp = list->next;
-		free(list);
-		list = temp;
-	}
-}
-
 // ft_init_linkedlist
 //---------------------------------------------------------------//
-//t_numbers_list
+//
 //---------------------------------------------------------------//
 t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 {
@@ -123,70 +103,6 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 	free(coonverted_arguments);
 	if (!list_a)
 		return (501);
-	return (200);
-}
-// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//	BASIC PUSH_SWAP COMMANDS 
-// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//TODO: ft_rotate_stack
-//---------------------------------------------------------------//
-// ra (rotate a): Shift up all elements of stack a by 1.
-// The first element becomes the last one.
-//---------------------------------------------------------------//
-void	ft_rotate_stack(t_numbers_list **origin_list)
-{
-	t_numbers_list	*temp_head;
-
-	temp_head = *origin_list;
-	*origin_list = (*origin_list)->next;
-	(*origin_list)->prev = NULL;
-	temp_head->next = NULL;
-	while ((*origin_list)->next)
-	{
-		origin_list = &((*origin_list)->next);
-	}
-	(*origin_list)->next = temp_head;
-	temp_head->prev = *origin_list;
-}
-
-//TODO: ft_push_b
-//---------------------------------------------------------------//
-// pb (push b): Take the first element at the top of a and put it at the top of b.
-// Do nothing if a is empty.
-//---------------------------------------------------------------//
-void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
-{
-	t_numbers_list *temp_head;
-
-	if (!from_list || !*from_list) // Check if list_a is empty
-		return;
-	temp_head = *from_list;
-		*from_list = (*from_list)->next;
-	if (*from_list)
-		(*from_list)->prev = NULL;
-	temp_head->next = *to_list;
-	if (*to_list)
-		(*to_list)->prev = temp_head;
-	*to_list = temp_head;
-	temp_head->prev = NULL;
-}
-// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-//TODO: ft_sort_lists
-//---------------------------------------------------------------//
-// Main sorting function
-// in case of error returns ERROR ID
-//---------------------------------------------------------------//
-int	ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
-{
-	ft_rotate_stack(origin_list_a);
-	ft_debug_num_printer(*origin_list_a, "after first RA");
-	ft_push(origin_list_a, origin_list_b);
-	ft_debug_num_printer(*origin_list_a, "A Stack after first push");
-	ft_push(origin_list_b, origin_list_a);
-	ft_debug_num_printer(*origin_list_a, "A Stack after second push");
-	// ft_debug_num_printer(*origin_list_b, "B Stack after first push");
-
 	return (200);
 }
 
