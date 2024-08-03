@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 21:55:16 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:56:22 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 	}
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // TEST PART
-	int i = 0;
-	while (i < processed_size)
-	{
-		printf("successed convertion for: %d\n", coonverted_arguments[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (i < processed_size)
+	// {
+	// 	printf("successed convertion for: %d\n", coonverted_arguments[i]);
+	// 	i++;
+	// }
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 	*list_a = ft_init_linkedlist(coonverted_arguments, processed_size);
 	ind = 0;
@@ -105,7 +105,7 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		free(preprocessed_arguments[ind]);
 		ind++;
 	}
-	ft_debug_num_printer(*list_a, "initial Stack");
+	// ft_debug_num_printer(*list_a, "initial Stack");
 	free(preprocessed_arguments);
 	free(coonverted_arguments);
 	if (!list_a)
@@ -138,5 +138,7 @@ int main(int argc, char **argv)
 	ft_sort_list(&list_a, &list_b);
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
+
+	ft_printf("ALL STEP %d\n", global_var);
 	return (0);
 }

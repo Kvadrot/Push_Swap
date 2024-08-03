@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 21:53:37 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:54:45 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_clean_up_list(t_numbers_list *list)
 
 	while (list)
 	{
-		ft_printf("list.num = %d is free\n", list->number);
+		// ft_printf(" = %d is free\n", list->number);
 		temp = list->next;
 		free(list);
 		list = temp;

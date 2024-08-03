@@ -6,12 +6,13 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/03 15:33:36 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:50:26 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
+int global_var = 0;
 // ft_is_sorted
 //---------------------------------------------------------------//
 // Checks up the list is it sorted already
@@ -36,13 +37,13 @@ int	ft_is_sorted(t_numbers_list **origin_list)
 // looks for the smallest node (the smallest num) in list
 // returns node with smallest number
 //---------------------------------------------------------------//
-t_numbers_list	*ft_find_smallest_node(t_numbers_list **origin_list)
+t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list)
 {
 	t_numbers_list	*temp_node;
 	t_numbers_list	*smallest_node;
 
-	temp_node = *origin_list;
-	smallest_node = *origin_list;
+	temp_node = origin_list;
+	smallest_node = origin_list;
 	while(temp_node->next)
 	{
 		if (smallest_node->number > temp_node->next->number)
@@ -60,16 +61,23 @@ t_numbers_list	*ft_find_smallest_node(t_numbers_list **origin_list)
 //---------------------------------------------------------------//
 void	ft_shift_node_to_top(t_numbers_list *smallest_node, t_numbers_list **origin_list)
 {
-	t_numbers_list	*temp_node;
+	int				mediana;
 
-	// if (ft_list_length(origin_list) )
-	// temp_node = *origin_list;
-	// while(temp_node->next)
-	// {
-	// 	if (temp_node->number > temp_node->next->number)
-	// 		return (-24);
-	// 	temp_node = temp_node->next;
-	// }
+	mediana = ft_list_length(*origin_list) / 2;
+	while(smallest_node->prev)
+	{
+		if ( mediana >= smallest_node->list_indx)
+		{
+			ft_rotate_stack(origin_list);
+			ft_printf("ra\n");
+			global_var++;
+		} else {
+			ft_reverse_rotate_stack(origin_list);
+			ft_printf("rra\n");
+			global_var++;
+		}
+		// ft_debug_num_printer(*origin_list, "shift result");
+	}
 }
 
 // ft_reset_nodes_indx
@@ -139,22 +147,30 @@ void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	// ft_printf("the smallest node is with indx: %d\n", ft_find_smallest_node(origin_list_a)->list_indx);
 
 	// ft_reset_nodes_indx TEST
-	ft_push(origin_list_a, origin_list_b);
-	ft_reset_nodes_indx(origin_list_a);
-	ft_debug_num_printer(*origin_list_a, "stack A after push and indx reset");
+	// ft_push(origin_list_a, origin_list_b);
+	// ft_reset_nodes_indx(origin_list_a);
+	// ft_debug_num_printer(*origin_list_a, "stack A after push and indx reset");
 	// ft_printf("is_sorted for stack a = %d\n", ft_is_sorted(origin_list_a));
 //
 
-
 // main appproach
-	// temp_node = *origin_list_a;
-	// while (ft_is_sorted(temp_node) == -404)
-	// {
-	// 	smallest_node = ft_find_smallest_node(temp_node);
-	// 	ft_shift_node_to_top(smallest_node, origin_list_a);
-	// 	ft_reset_nodes_indx(origin_list_a);
-	// 	ft_push(origin_list_a, origin_list_b);
-	// 	temp_node = *origin_list_a;
-	// }
+	temp_node = *origin_list_a;
+	while (ft_is_sorted(&temp_node) == -404)
+	{
+		smallest_node = ft_find_smallest_node(temp_node);
+		ft_shift_node_to_top(smallest_node, origin_list_a);
+		ft_push(origin_list_a, origin_list_b);
+		ft_printf("pb\n");
+		global_var++;
+		ft_reset_nodes_indx(origin_list_a);
+		temp_node = *origin_list_a;
+	}
 
+	while (*origin_list_b)
+	{
+		ft_push(origin_list_b, origin_list_a);
+		global_var++;;
+		ft_printf("pa\n");
+	}
+	// ft_debug_num_printer(*origin_list_a, "test sort");
 }

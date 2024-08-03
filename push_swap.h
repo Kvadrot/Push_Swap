@@ -6,9 +6,10 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/03 14:01:06 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:49:49 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PUSH_SWAP
 # define PUSH_SWAP
@@ -26,6 +27,7 @@ typedef struct t_numbers_list {
 	int						list_indx;
 }	t_numbers_list;
 
+extern int global_var;
 
 // Validation_fts
 bool	ft_is_valid_duplicates(int *numbers, int numbers_amount);
@@ -48,11 +50,13 @@ void	ft_reverse_rotate_stack(t_numbers_list **origin_list);
 
 
 // Sort_fts
-t_numbers_list	*ft_find_smallest_node(t_numbers_list **origin_list);
+t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list);
 void			ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 
 //Debug Fucntions
 void	ft_debug_num_printer(t_numbers_list *list, char *separator_text);
 
 
+
 #endif
+
