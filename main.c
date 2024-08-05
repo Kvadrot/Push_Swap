@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/03 17:56:22 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:11:41 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,10 @@ int main(int argc, char **argv)
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
 
-	ft_printf("ALL STEP %d\n", global_var);
+	// ft_printf("rra\n");
+	// ft_printf("pa\n");
+
+
+	// ft_printf("ALL STEP %d\n", global_var);
 	return (0);
 }
