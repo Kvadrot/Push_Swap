@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 21:33:32 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:35:58 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin
 
 // Sort_fts
 t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list);
-void			ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
+void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
+// void			ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 
 //Debug Fucntions
 void	ft_debug_num_printer(t_numbers_list *list, char *separator_text);

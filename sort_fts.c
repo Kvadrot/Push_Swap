@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 21:11:33 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:08:04 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,42 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 		new_node_ind++;
 	}
 }
+ //TODO: ft_sort_with_turk
+//---------------------------------------------------------------//
+// Sorting algotrythm 
+// 1) pushes the two first elements from A -> B
+
+// while (stack_a.nodes.count != 3) {
+// 2) reset_targets() - Resets targets (targets - nodes in stack_B) for nodes 
+// in Stack A.
+// 2.1) closest_node() - Target is number in stack_B[i] 
+// stack_A[i] > stack_B[i] where stack_A[i] - stack_B[i] is closer to 1
+// the number from stack_A might be upper the target
+// 2.2) If number in stack_A is less then any of numbers in Stack_B
+// then number just goes to the top of the Stack_B 
+// 3) cost_reset() - resets the costs for each node, according to targets 
+// 4) executes the instructions counted by cost_reset();
+// 4.1) push Stack_A -> Stack_B 
+// }
+
+// 5) if stack)_A is not sorted - sort it.
+
+// while stack_B.nodes != NULL {
+// 6) resets targets for nodes in stack_B.
+// 6.1) target is number in stack_A[i]
+// stack_B[i] < stack_A[i] where stack_A[i] - stack_B[i] is closer to 1
+// the number from stack_B might be upper the target
+// 7) cost_reset() resets the costs for each node, according to targets 
+// 8) executes the instructions counted by cost_reset();
+// 8.1) pushes the node to the stack_A
+// }
+
+// 9) as soon as stack_B is empty, does RA or RRA until the stack is sorted.
+
+void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+{
+	
+}
 
  //TODO: ft_sort_list
 //---------------------------------------------------------------//
@@ -117,11 +153,11 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 // back on top of the A_stack
 // 5) pushes all nodes from B_stack on top of the A_stack.
 //---------------------------------------------------------------//
-void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
-{
-	t_numbers_list	*smallest_node;
-	t_numbers_list	*temp_node;
-	int				smallest_node_indx;
+// void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+// {
+// 	t_numbers_list	*smallest_node;
+// 	t_numbers_list	*temp_node;
+// 	int				smallest_node_indx;
 
 //NAVIGATION TEST
 	// if (*origin_list_a == NULL)
@@ -153,24 +189,27 @@ void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	// ft_printf("is_sorted for stack a = %d\n", ft_is_sorted(origin_list_a));
 //
 
-// main appproach
-	temp_node = *origin_list_a;
-	while (ft_is_sorted(&temp_node) == -404)
-	{
-		smallest_node = ft_find_smallest_node(temp_node);
-		ft_shift_node_to_top(smallest_node, origin_list_a);
-		ft_push(origin_list_a, origin_list_b);
-		ft_printf("pb\n");
-		global_var++;
-		ft_reset_nodes_indx(origin_list_a);
-		temp_node = *origin_list_a;
-	}
 
-	while (*origin_list_b)
-	{
-		ft_push(origin_list_b, origin_list_a);
-		global_var++;;
-		ft_printf("pa\n");
-	}
+
+//
+// SORT by the smalllest aproach
+	// temp_node = *origin_list_a;
+	// while (ft_is_sorted(&temp_node) == -404)
+	// {
+	// 	smallest_node = ft_find_smallest_node(temp_node);
+	// 	ft_shift_node_to_top(smallest_node, origin_list_a);
+	// 	ft_push(origin_list_a, origin_list_b);
+	// 	ft_printf("pb\n");
+	// 	global_var++;
+	// 	ft_reset_nodes_indx(origin_list_a);
+	// 	temp_node = *origin_list_a;
+	// }
+
+	// while (*origin_list_b)
+	// {
+	// 	ft_push(origin_list_b, origin_list_a);
+	// 	global_var++;;
+	// 	ft_printf("pa\n");
+	// }
 	// ft_debug_num_printer(*origin_list_a, "test sort");
-}
+// }
