@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/02 20:21:55 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:33:04 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 //	BASIC PUSH_SWAP COMMANDS 
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
 
 //TODO: ft_reverse_rotate_stack
 //---------------------------------------------------------------//
@@ -80,5 +82,31 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 		(*to_list)->prev = temp_head;
 	*to_list = temp_head;
 	temp_head->prev = NULL;
+}
+
+// rotate_both
+// RR
+//---------------------------------------------------------------//
+// ra (rotate a): Shift up all elements of stack A & stack B by 1.
+// The first element becomes the last one.
+//---------------------------------------------------------------//
+void	rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+{
+	ft_rotate_stack(origin_list_a);
+	ft_rotate_stack(origin_list_b);
+	ft_printf("rr");
+}
+
+// reverse_rotate_both
+// RRR
+//---------------------------------------------------------------//
+// rra  Shift down all elements of stack A & stack B by 1.
+// The last element becomes the first one.
+//---------------------------------------------------------------//
+void	reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+{
+	ft_reverse_rotate_stack(origin_list_a);
+	ft_reverse_rotate_stack(origin_list_b);
+	ft_printf("rrr");
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

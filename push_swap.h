@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/03 17:49:49 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:33:32 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 typedef struct t_numbers_list {
 	struct t_numbers_list	*next;
 	struct t_numbers_list	*prev;
+	struct t_number_list	*target;
 	int						number;
 	int						list_indx;
+	int						reach_target_cost;
 }	t_numbers_list;
 
 extern int global_var;
@@ -47,6 +49,8 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
 void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list);
 void	ft_rotate_stack(t_numbers_list **origin_list);
 void	ft_reverse_rotate_stack(t_numbers_list **origin_list);
+void	rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
+void	reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 
 
 // Sort_fts
