@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 21:35:58 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 23:12:05 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct t_numbers_list {
 	struct t_numbers_list	*next;
 	struct t_numbers_list	*prev;
-	struct t_number_list	*target;
+	struct t_numbers_list	*target;
 	int						number;
 	int						list_indx;
 	int						reach_target_cost;

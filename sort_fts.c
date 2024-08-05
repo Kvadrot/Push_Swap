@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 22:08:04 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/06 00:10:11 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,20 +100,74 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 		new_node_ind++;
 	}
 }
+
+
+int	to_abs(int n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
+}
+// TODO: ft_is_closest(int a_num, int b_num, int current_target)
+// returns the closest number to a_num
+//---------------------------------------------------------------//
+int ft_is_closest()
+{
+
+}
+//---------------------------------------------------------------//
+// looks for target node for searcher_stack in target_src_stack
+//
+//---------------------------------------------------------------//
+
+
+// TODO: ft_reset_targets
+//---------------------------------------------------------------//
+// looks for target node for searcher_stack in target_src_stack
+//
+//---------------------------------------------------------------//
+
+void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_src_stack)
+{
+	t_numbers_list	*temp_searcher;
+	t_numbers_list	*temp_src;
+
+	temp_searcher = *searcher_stack;
+
+	while (temp_searcher)
+	{
+		temp_src = *target_src_stack;
+		temp_searcher->target = temp_src;
+		
+		while (temp_src)
+		{
+			//TODO: replace abs with external func that looks for closest int
+			if ((temp_searcher->number > temp_src->number)
+			&& temp_searcher->target->number > temp_src->number
+				&& ((temp_searcher->number - temp_src->number) < (temp_searcher->number - temp_searcher->target->number)))
+			{
+				temp_searcher->target = temp_src;
+			}
+			temp_src = temp_src->next;
+		}
+		temp_searcher = temp_searcher->next;
+	}
+}
+
  //TODO: ft_sort_with_turk
 //---------------------------------------------------------------//
 // Sorting algotrythm 
 // 1) pushes the two first elements from A -> B
 
 // while (stack_a.nodes.count != 3) {
-// 2) reset_targets() - Resets targets (targets - nodes in stack_B) for nodes 
+// 2) ft_reset_targets() - Resets targets (targets - nodes in stack_B) for nodes 
 // in Stack A.
 // 2.1) closest_node() - Target is number in stack_B[i] 
 // stack_A[i] > stack_B[i] where stack_A[i] - stack_B[i] is closer to 1
 // the number from stack_A might be upper the target
 // 2.2) If number in stack_A is less then any of numbers in Stack_B
 // then number just goes to the top of the Stack_B 
-// 3) cost_reset() - resets the costs for each node, according to targets 
+// 3) ft_cost_reset() - resets the costs for each node, according to targets 
 // 4) executes the instructions counted by cost_reset();
 // 4.1) push Stack_A -> Stack_B 
 // }
@@ -121,11 +175,11 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 // 5) if stack)_A is not sorted - sort it.
 
 // while stack_B.nodes != NULL {
-// 6) resets targets for nodes in stack_B.
+// 6) ft_reset_targets() resets targets for nodes in stack_B.
 // 6.1) target is number in stack_A[i]
 // stack_B[i] < stack_A[i] where stack_A[i] - stack_B[i] is closer to 1
 // the number from stack_B might be upper the target
-// 7) cost_reset() resets the costs for each node, according to targets 
+// 7) ft_cost_reset() resets the costs for each node, according to targets 
 // 8) executes the instructions counted by cost_reset();
 // 8.1) pushes the node to the stack_A
 // }
@@ -134,7 +188,21 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 
 void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 {
-	
+	ft_push(origin_list_a, origin_list_b);
+	ft_push(origin_list_a, origin_list_b);
+
+	while (ft_list_length(*origin_list_a))
+	{
+		ft_reset_targets(origin_list_a, origin_list_b);
+
+		// ft_reset_costs();
+		//execute commands;
+		// ||||||||||||| TEST |||||||||
+		ft_debug_num_printer((*origin_list_a), "debug num");
+		ft_push(origin_list_a, origin_list_b);
+
+		// ||||||||||||||||||||||||||||||
+	}
 }
 
  //TODO: ft_sort_list

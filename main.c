@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 21:19:25 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:12:53 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,13 @@ int main(int argc, char **argv)
 	// int test = ft_list_length(list_a);
 	// ft_printf("init func gives: %d nodes, ft_list_length gives: %d\n", a, test);
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-	ft_sort_list(&list_a, &list_b);
+	if (ft_list_length(list_a) <= 3)
+	{
+		//TODO: Sort_three
+		//sorting func for 3 elemenets only
+	} else {
+		ft_sort_with_turk(&list_a, &list_b);
+	}
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
 
