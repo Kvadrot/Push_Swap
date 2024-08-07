@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 18:36:09 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:13:40 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,27 @@ void	ft_rotate_stack(t_numbers_list **origin_list)
 	temp_head->prev = *origin_list;
 }
 
+// ft_reset_nodes_indx
+//---------------------------------------------------------------//
+// resets the indexex for each node inside the node.
+//---------------------------------------------------------------//
+static void	ft_reset_nodes_indx(t_numbers_list **list_head)
+{
+	t_numbers_list	*temp_node;
+	int				new_node_ind;
+
+	if (!list_head)
+		return ;
+	new_node_ind = 0;
+	temp_node = *list_head;
+	while(temp_node)
+	{
+		temp_node->list_indx = new_node_ind;
+		temp_node = temp_node->next;
+		new_node_ind++;
+	}
+}
+
 //TODO: ft_push_b
 //---------------------------------------------------------------//
 // pb (push b): Take the first element at the top of a and put it at the top of b.
@@ -80,6 +101,8 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 		(*to_list)->prev = temp_head;
 	*to_list = temp_head;
 	temp_head->prev = NULL;
+	ft_reset_nodes_indx(from_list);
+	ft_reset_nodes_indx(to_list);
 }
 
 // rotate_both

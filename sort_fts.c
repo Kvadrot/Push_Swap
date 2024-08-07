@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 20:34:02 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 22:23:02 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,14 @@ void	ft_shift_node_to_top(t_numbers_list *smallest_node, t_numbers_list **origin
 	}
 }
 
-// ft_reset_nodes_indx
-//---------------------------------------------------------------//
-// resets the indexex for each node inside the node.
-//---------------------------------------------------------------//
-void	ft_reset_nodes_indx(t_numbers_list **list_head)
-{
-	t_numbers_list	*temp_node;
-	int				new_node_ind;
 
-	if (!list_head)
-		return ;
-	new_node_ind = 0;
-	temp_node = *list_head;
-	while(temp_node)
-	{
-		temp_node->list_indx = new_node_ind;
-		temp_node = temp_node->next;
-		new_node_ind++;
-	}
-}
-
+// ft_new_target_is_closer
+//---------------------------------------------------------------//
+// compares given node.target.num with new_target.num
+// Returns:
+// -true if new_target.num > node.target.num
+// -false if new_target.num > node.target.num
+//---------------------------------------------------------------//
 static	bool ft_new_target_is_closer(t_numbers_list *searcher, int new_target)
 {
 	long long int searcher_val;
@@ -110,7 +97,11 @@ static	bool ft_new_target_is_closer(t_numbers_list *searcher, int new_target)
 	searcher_val = searcher->number;
 	current_target_val = searcher->target->number;
 	new_target_val = new_target;
-	if (ft_to_abs(searcher_val - new_target_val) < ft_to_abs(searcher_val - current_target_val))
+	
+	if (current_target_val > searcher_val)
+		return (true);
+
+	if (ft_long_long_abs(searcher_val - new_target_val) < ft_long_long_abs(searcher_val - current_target_val))
 		return (true);
 	else
 		return (false);
@@ -121,7 +112,6 @@ static	bool ft_new_target_is_closer(t_numbers_list *searcher, int new_target)
 // looks for target node for searcher_stack in target_src_stack
 //
 //---------------------------------------------------------------//
-
 void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_src_stack)
 {
 	t_numbers_list	*temp_searcher;
@@ -136,7 +126,6 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 		
 		while (temp_src)
 		{
-			//TODO: replace abs with external func that looks for closest int
 			if ((temp_searcher->number > temp_src->number)
 				&& ft_new_target_is_closer(temp_searcher, temp_src->number) == true)
 				{
@@ -148,6 +137,19 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 	}
 }
 
+
+// TODO: count_to_make_top
+//---------------------------------------------------------------//
+// coutns how many moves (RA, RRA) needs node in searcher stack
+//  depends on index
+//---------------------------------------------------------------//
+int	count_to_make_top(t_numbers_list **origin_list)
+{
+	int mediana;
+
+	mediana = ft_list_length(*origin_list) / 2;
+	
+}
 
 // TODO: ft_reset_costs
 //---------------------------------------------------------------//
@@ -225,11 +227,15 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 		// ft_reset_targets(origin_list_a, origin_list_b);
 		// ft_debug_num_printer((*origin_list_a), "start_targeting_step");
 		// ft_push(origin_list_a, origin_list_b);
-		// ft_debug_num_printer((*origin_list_b), "end_targeting_step";
+		// ft_debug_num_printer((*origin_list_b), "end_targeting_step");
 	// 	// ||||||||||||||||||||||||||||||
 
 		ft_reset_targets(origin_list_a, origin_list_b);
+		ft_debug_num_printer((*origin_list_a), "end_targeting_step");
+		ft_push(origin_list_a, origin_list_b);
+
 		ft_reset_costs(origin_list_a, origin_list_b);
+
 		//execute commands;
 	}
 }
