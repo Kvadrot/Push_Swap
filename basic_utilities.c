@@ -6,11 +6,26 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/03 17:54:45 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:14:07 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+// ft_to_abs
+//---------------------------------------------------------------//
+// converts any int into long long int and multyplies by -1
+// num < 0
+//---------------------------------------------------------------//
+long long int ft_to_abs(long long int n)
+{
+	long long int	new_num;
+
+	new_num = n;
+	if (new_num < 0)
+		return (new_num * -1);
+	return (new_num);
+}
 
 // ft_copy_complex_arr
 //---------------------------------------------------------------//

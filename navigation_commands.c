@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 21:33:04 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:36:09 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 {
 	t_numbers_list *temp_head;
 
-	if (!from_list || !*from_list) // Check if list_a is empty
-		return;
 	temp_head = *from_list;
 		*from_list = (*from_list)->next;
 	if (*from_list)

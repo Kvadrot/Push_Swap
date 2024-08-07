@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/06 00:10:11 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:49:01 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,20 @@ void	ft_reset_nodes_indx(t_numbers_list **list_head)
 	}
 }
 
-
-int	to_abs(int n)
+static	bool ft_new_target_is_closer(t_numbers_list *searcher, int new_target)
 {
-	if (n < 0)
-		return (n * -1);
-	return (n);
-}
-// TODO: ft_is_closest(int a_num, int b_num, int current_target)
-// returns the closest number to a_num
-//---------------------------------------------------------------//
-int ft_is_closest()
-{
+	long long int searcher_val;
+	long long int current_target_val;
+	long long int new_target_val;
 
+	searcher_val = searcher->number;
+	current_target_val = searcher->target->number;
+	new_target_val = new_target;
+	if (ft_to_abs(searcher_val - new_target_val) < ft_to_abs(searcher_val - current_target_val))
+		return (true);
+	else
+		return (false);
 }
-//---------------------------------------------------------------//
-// looks for target node for searcher_stack in target_src_stack
-//
-//---------------------------------------------------------------//
-
 
 // TODO: ft_reset_targets
 //---------------------------------------------------------------//
@@ -143,11 +138,10 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 		{
 			//TODO: replace abs with external func that looks for closest int
 			if ((temp_searcher->number > temp_src->number)
-			&& temp_searcher->target->number > temp_src->number
-				&& ((temp_searcher->number - temp_src->number) < (temp_searcher->number - temp_searcher->target->number)))
-			{
-				temp_searcher->target = temp_src;
-			}
+				&& ft_new_target_is_closer(temp_searcher, temp_src->number) == true)
+				{
+					temp_searcher->target = temp_src;					
+				}
 			temp_src = temp_src->next;
 		}
 		temp_searcher = temp_searcher->next;
@@ -198,10 +192,10 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 		// ft_reset_costs();
 		//execute commands;
 		// ||||||||||||| TEST |||||||||
-		ft_debug_num_printer((*origin_list_a), "debug num");
+		ft_debug_num_printer((*origin_list_a), "start_targeting_step");
 		ft_push(origin_list_a, origin_list_b);
-
-		// ||||||||||||||||||||||||||||||
+		ft_debug_num_printer((*origin_list_b), "end_targeting_step");
+	// 	// ||||||||||||||||||||||||||||||
 	}
 }
 
