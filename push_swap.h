@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 18:27:33 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:33:49 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct t_numbers_list {
 	struct t_numbers_list	*target;
 	int						number;
 	int						list_indx;
+	int						shifiting_cost;
 	int						reach_target_cost;
 }	t_numbers_list;
 

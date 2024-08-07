@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 20:28:01 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:34:02 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 	}
 }
 
+
 // TODO: ft_reset_costs
 //---------------------------------------------------------------//
 // counts and sets for each searcher_stack node how many moves does
@@ -159,7 +160,7 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 // 3) checks if there is a match during feature shifting node to
 //  the top of stack, if so, we can reduce num of executing commands
 //---------------------------------------------------------------//
-void	ft_reset_costs(t_numbers_list *searcher_list, t_numbers_list *src_list)
+void	ft_reset_costs(t_numbers_list **searcher_list, t_numbers_list **src_list)
 {
 	int result;
 
@@ -176,7 +177,8 @@ void	ft_reset_costs(t_numbers_list *searcher_list, t_numbers_list *src_list)
 			} else {
 				result = ft_abs(src_commands) + ft_abs(searcher_commands);
 			}
-			searcher_list = searcher_list->next;
+			(*searcher_list)->shifiting_cost = result;
+			*searcher_list = (*searcher_list)->next;
 		}
 }
 
@@ -227,7 +229,7 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 	// 	// ||||||||||||||||||||||||||||||
 
 		ft_reset_targets(origin_list_a, origin_list_b);
-		ft_reset_costs();
+		ft_reset_costs(origin_list_a, origin_list_b);
 		//execute commands;
 	}
 }
