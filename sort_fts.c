@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 22:23:02 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/08 20:19:39 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,46 +142,73 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 //---------------------------------------------------------------//
 // coutns how many moves (RA, RRA) needs node in searcher stack
 //  depends on index
+// Returns:
+// 1) Positive number - represents the particular amount of RA or
+//  RB CMD to move node to the top
+// 2) Negative number - represents the particular amount of RRA or
+// RRB CMD to move node to the top
+// 3) 0 if node is already on the top
 //---------------------------------------------------------------//
-int	count_to_make_top(t_numbers_list **origin_list)
+int	count_to_make_top(t_numbers_list **origin_list, t_numbers_list *for_node)
 {
 	int mediana;
+	int	node_ind;
+	int list_len;
 
-	mediana = ft_list_length(*origin_list) / 2;
-	
+	if (*origin_list)
+		list_len = ft_list_length(*origin_list);
+	else
+		list_len = 0;
+	if (for_node)
+		node_ind = for_node->list_indx;
+	else
+		node_ind = 0;
+	mediana = list_len / 2;
+	if (node_ind == 0)
+		return (0);
+	else if (node_ind <= mediana)
+		return (node_ind);
+	else
+		return (-(list_len - node_ind));
 }
 
 // TODO: ft_reset_costs
-//---------------------------------------------------------------//
+//---------------------------------------------------------------------//
 // counts and sets for each searcher_stack node how many moves does
 // each stack need to be able to connect searcher_stack with target
 // node (both nodes has to be on the top of their stack)
 // HOW it WORKS:
 // 1) coutns how many moves (RA, RRA) needs node in searcher stack
 // 2) counts how many moves (RA, RRA) needs node in src stack
-// 3) checks if there is a match during feature shifting node to
-//  the top of stack, if so, we can reduce num of executing commands
-//---------------------------------------------------------------//
+// 3) checks if there is a match during feature shifting node commands
+// to the top of stack, if so, we can reduce num of executing commands
+// by using RR or RRR.
+//--------------------------------------------------------------------//
 void	ft_reset_costs(t_numbers_list **searcher_list, t_numbers_list **src_list)
 {
 	int result;
+	t_numbers_list	*temp_searcher;
 
-		while  (searcher_list)
+	temp_searcher = *searcher_list;
+	while  (temp_searcher)
+	{
+		int searcher_commands = count_to_make_top(searcher_list, temp_searcher);
+		int src_commands = count_to_make_top(src_list, temp_searcher->target);
+		ft_printf("searcher_commands: %d, src_commands ", searcher_commands, src_commands);
+		
+		if (src_commands > 0 && searcher_commands > 0)
 		{
-	    	int searcher_commands = count_to_make_top();
-			int src_commands = count_to_make_top();
-			if (src_commands > 0 && searcher_commands > 0)
-			{
-				result = ft_abs(src_commands - searcher_commands);
-			} else if (src_commands < 0 && searcher_commands < 0)
-			{
-				result = ft_abs(ft_abs(src_commands) - ft_abs(searcher_commands));
-			} else {
-				result = ft_abs(src_commands) + ft_abs(searcher_commands);
-			}
-			(*searcher_list)->shifiting_cost = result;
-			*searcher_list = (*searcher_list)->next;
+			result = ft_abs(src_commands - searcher_commands);
+		} else if (src_commands < 0 && searcher_commands < 0)
+		{
+			result = ft_abs(ft_abs(src_commands) - ft_abs(searcher_commands));
+		} else {
+			result = ft_abs(src_commands) + ft_abs(searcher_commands);
 		}
+		ft_printf("results: %d \n", result);
+		temp_searcher->shifiting_cost = result;
+		temp_searcher = temp_searcher->next;
+	}
 }
 
  //TODO: ft_sort_with_turk
@@ -221,6 +248,8 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 	ft_push(origin_list_a, origin_list_b);
 	ft_push(origin_list_a, origin_list_b);
 
+
+	// TEST
 	while (ft_list_length(*origin_list_a))
 	{
 		// ||||||||||||| TEST |||||||||
@@ -229,15 +258,14 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 		// ft_push(origin_list_a, origin_list_b);
 		// ft_debug_num_printer((*origin_list_b), "end_targeting_step");
 	// 	// ||||||||||||||||||||||||||||||
-
 		ft_reset_targets(origin_list_a, origin_list_b);
+		ft_reset_costs(origin_list_a, origin_list_b);
 		ft_debug_num_printer((*origin_list_a), "end_targeting_step");
 		ft_push(origin_list_a, origin_list_b);
-
-		ft_reset_costs(origin_list_a, origin_list_b);
-
 		//execute commands;
 	}
+		// ft_debug_num_printer((*origin_list_b), "end_targeting_step");
+
 }
 
  //TODO: ft_sort_list
