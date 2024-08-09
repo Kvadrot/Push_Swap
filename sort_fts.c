@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 15:46:57 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:15:57 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,29 @@ int global_var = 0;
 // Checks up the list is it sorted already
 // If list is sorted - returns status code: 200
 //---------------------------------------------------------------//
-int	ft_is_sorted(t_numbers_list **origin_list)
+int	ft_is_sorted(t_numbers_list **origin_list, bool ascending)
 {
 	t_numbers_list	*temp_node;
 
 	temp_node = *origin_list;
-	while(temp_node->next)
+	if (ascending == true)
 	{
-		if (temp_node->number > temp_node->next->number)
-			return (-404);
-		temp_node = temp_node->next;
+		while(temp_node->next)
+		{
+			if (temp_node->number > temp_node->next->number)
+				return (-404);
+			temp_node = temp_node->next;
+		}
+		return (200);
+	} else {
+		while(temp_node->next)
+		{
+			if (temp_node->number < temp_node->next->number)
+				return (-404);
+			temp_node = temp_node->next;
+		}
+		return (200);
 	}
-	return (200);
 }
 
 // ft_shift_node_to_top
@@ -38,19 +49,27 @@ int	ft_is_sorted(t_numbers_list **origin_list)
 // whould take less steps to shift the node on the top of the stack
 // choose between the RA and RRA
 //---------------------------------------------------------------//
-void	ft_shift_node_to_top(t_numbers_list *node_to_shift, t_numbers_list **origin_list)
+void	ft_shift_node_to_top(t_numbers_list *node_to_shift, t_numbers_list **origin_list, char stackname)
 {
 	int				mediana;
-
+	char	*print_status;
 	mediana = ft_list_length(*origin_list) / 2;
 	while(node_to_shift->prev)
 	{
 		if ( mediana >= node_to_shift->list_indx)
 		{
-			ft_rotate_stack(origin_list, "ra\n");
+			if (stackname == 'a')
+				print_status = "ra\n";
+			else
+				print_status = "rb\n";
+			ft_rotate_stack(origin_list, print_status);
 			global_var++;
 		} else {
-			ft_reverse_rotate_stack(origin_list, "rb\n");
+			if (stackname == 'a')
+				print_status = "rra\n";
+			else
+				print_status = "rrb\n";
+			ft_reverse_rotate_stack(origin_list, print_status);
 			global_var++;
 		}
 	}
@@ -214,7 +233,7 @@ void	ft_reset_costs(t_numbers_list **searcher_list, t_numbers_list **src_list)
 		temp_searcher = temp_searcher->next;
 	}
 }
- //TODO: ft_find_cheapest_node
+// ft_find_cheapest_node
 //---------------------------------------------------------------//
 // looks through the entire list for the lowest price for shifting
 // RETURNS:
@@ -235,7 +254,7 @@ t_numbers_list *ft_find_cheapest_node(t_numbers_list **origin)
 	return (cheapest_list);
 }
 
-//TODO: ft_shift_cheapest
+// ft_shift_cheapest
 //---------------------------------------------------------------//
 // looks through the entire list for the lowest price for shifting
 // and shifts the node until it reached the top.
@@ -255,16 +274,36 @@ void	ft_shift_cheapest(t_numbers_list **searcher_list, t_numbers_list **src_list
 	if ((searcher_commands > 0 && src_commands > 0) || (searcher_commands < 0 && src_commands < 0) )
 	{
 		ft_shift_both_to_top(cheapest_node, searcher_list, cheapest_node->target, src_list, searcher_commands);
-		ft_shift_node_to_top(cheapest_node, searcher_list);
-		ft_shift_node_to_top(cheapest_node->target, src_list);
+		ft_shift_node_to_top(cheapest_node, searcher_list, 'a');
+		ft_shift_node_to_top(cheapest_node->target, src_list, 'b');
 	} else {
-		ft_shift_node_to_top(cheapest_node, searcher_list);
-		ft_shift_node_to_top(cheapest_node->target, src_list);
+		ft_shift_node_to_top(cheapest_node, searcher_list, 'a');
+		ft_shift_node_to_top(cheapest_node->target, src_list, 'b');
 	}
 }
 
+
+// ft_find_max
+//-----------------------------------------------------------------//
+// looks through the entire list for the node with the biggest value
+t_numbers_list *ft_find_max(t_numbers_list **list)
+{
+	t_numbers_list *temp_node;
+	t_numbers_list *max_node;
+
+	temp_node = *list;
+	max_node = temp_node;
+	while (temp_node)
+	{
+		if (temp_node->number > max_node->number)
+			max_node = temp_node;
+		temp_node = temp_node->next;
+	}
+	return (max_node);
+}
+
  //TODO: ft_sort_with_turk
-//---------------------------------------------------------------//
+//-----------------------------------------------------------------//
 // Sorting algotrythm 
 // 1) pushes the two first elements from A -> B
 
@@ -297,26 +336,20 @@ void	ft_shift_cheapest(t_numbers_list **searcher_list, t_numbers_list **src_list
 
 void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 {
-	ft_push(origin_list_a, origin_list_b);
-	ft_push(origin_list_a, origin_list_b);
-
+	ft_push(origin_list_a, origin_list_b, "pb\n");
+	ft_push(origin_list_a, origin_list_b, "pb\n");
 
 	// TEST
 	while (ft_list_length(*origin_list_a))
 	{
-		// ||||||||||||| TEST |||||||||
-		// ft_reset_targets(origin_list_a, origin_list_b);
-		// ft_debug_num_printer((*origin_list_a), "start_targeting_step");
-		// ft_push(origin_list_a, origin_list_b);
-		// ft_debug_num_printer((*origin_list_b), "end_targeting_step");
-	// 	// ||||||||||||||||||||||||||||||
 		ft_reset_targets(origin_list_a, origin_list_b);
 		ft_reset_costs(origin_list_a, origin_list_b);
 		ft_shift_cheapest(origin_list_a, origin_list_b);
-		ft_push(origin_list_a, origin_list_b);
-		// ft_printf("pb\n");
-		// ft_debug_num_printer((*origin_list_b), "after target and cost execution");
+		ft_push(origin_list_a, origin_list_b, "pb\n");
 	}
-	ft_debug_num_printer((*origin_list_b), "end_targeting_step");
-
+	while (ft_is_sorted(origin_list_b, false) != 200)
+		ft_shift_node_to_top(ft_find_max(origin_list_b), origin_list_b, 'b');
+	while (ft_list_length(*origin_list_b))
+		ft_push(origin_list_b, origin_list_a, "pa\n");
+	// ft_debug_num_printer((*origin_list_a), "end_sorting_step");
 }

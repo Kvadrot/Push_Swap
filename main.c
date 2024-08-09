@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/05 22:12:53 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:16:06 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int main(int argc, char **argv)
 
 	if (ft_process_input(argc, argv, &list_a, &list_b) < 0)
 		return (1);
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// TEST PART
-	// int a = ft_process_input(argc, argv, &list_a, &list_b);
-	// int test = ft_list_length(list_a);
-	// ft_printf("init func gives: %d nodes, ft_list_length gives: %d\n", a, test);
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-	if (ft_list_length(list_a) <= 3)
+
+	if (ft_is_sorted(&list_a, true) == 200)
+	{
+		ft_clean_up_list(list_a);
+		ft_clean_up_list(list_b);
+		return (0);
+	} else if (ft_list_length(list_a) <= 3)
 	{
 		//TODO: Sort_three
 		//sorting func for 3 elemenets only
@@ -144,7 +144,6 @@ int main(int argc, char **argv)
 	}
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
-
 	// ft_printf("ALL STEP %d\n", global_var);
 	return (0);
 }

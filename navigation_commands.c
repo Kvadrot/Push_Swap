@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 15:14:12 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 20:22:20 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_reverse_rotate_stack(t_numbers_list **origin_list, char *print_status)
 // pb (push b): Take the first element at the top of a and put it at the top of b.
 // Do nothing if a is empty.
 //---------------------------------------------------------------//
-void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
+void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list, char *print_status)
 {
 	t_numbers_list *temp_head;
 
@@ -109,6 +109,7 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 	temp_head->prev = NULL;
 	ft_reset_nodes_indx(from_list);
 	ft_reset_nodes_indx(to_list);
+	ft_printf(print_status);
 }
 
 // rotate_both
