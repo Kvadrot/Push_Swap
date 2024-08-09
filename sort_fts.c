@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 12:07:04 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:46:57 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,53 +32,44 @@ int	ft_is_sorted(t_numbers_list **origin_list)
 	return (200);
 }
 
-//TODO int ft_find_smallest_node()
-//---------------------------------------------------------------//
-// looks for the smallest node (the smallest num) in list
-// returns node with smallest number
-//---------------------------------------------------------------//
-// t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list)
-// {
-// 	t_numbers_list	*temp_node;
-// 	t_numbers_list	*smallest_node;
-
-// 	temp_node = origin_list;
-// 	smallest_node = origin_list;
-// 	while(temp_node->next)
-// 	{
-// 		if (smallest_node->number > temp_node->next->number)
-// 			smallest_node = temp_node->next;
-// 		temp_node = temp_node->next;
-// 	}
-// 	return (smallest_node);
-// }
-
 // ft_shift_node_to_top
 //---------------------------------------------------------------//
 // depending on indx of the element takes descision which command
 // whould take less steps to shift the node on the top of the stack
 // choose between the RA and RRA
 //---------------------------------------------------------------//
-// void	ft_shift_node_to_top(t_numbers_list *smallest_node, t_numbers_list **origin_list)
-// {
-// 	int				mediana;
+void	ft_shift_node_to_top(t_numbers_list *node_to_shift, t_numbers_list **origin_list)
+{
+	int				mediana;
 
-// 	mediana = ft_list_length(*origin_list) / 2;
-// 	while(smallest_node->prev)
-// 	{
-// 		if ( mediana >= smallest_node->list_indx)
-// 		{
-// 			ft_rotate_stack(origin_list);
-// 			ft_printf("ra\n");
-// 			global_var++;
-// 		} else {
-// 			ft_reverse_rotate_stack(origin_list);
-// 			ft_printf("rra\n");
-// 			global_var++;
-// 		}
-// 		// ft_debug_num_printer(*origin_list, "shift result");
-// 	}
-// }
+	mediana = ft_list_length(*origin_list) / 2;
+	while(node_to_shift->prev)
+	{
+		if ( mediana >= node_to_shift->list_indx)
+		{
+			ft_rotate_stack(origin_list, "ra\n");
+			global_var++;
+		} else {
+			ft_reverse_rotate_stack(origin_list, "rb\n");
+			global_var++;
+		}
+	}
+}
+
+void	ft_shift_both_to_top(t_numbers_list *searcher_to_shift, t_numbers_list **searcher_origin, t_numbers_list *src_to_shift, t_numbers_list **src_origin, int shifting_type)
+{
+	while(searcher_to_shift->prev || src_to_shift->prev)
+	{
+		if ( shifting_type > 0)
+		{
+			ft_rotate_both(searcher_origin, src_origin, "rr");
+			global_var++;
+		} else {
+			ft_reverse_rotate_both(searcher_origin, src_origin, "rrr");
+			global_var++;
+		}
+	}
+}
 
 
 // ft_new_target_is_closer
@@ -123,7 +114,13 @@ void	ft_reset_targets(t_numbers_list **searcher_stack, t_numbers_list **target_s
 	{
 		temp_src = *target_src_stack;
 		temp_searcher->target = temp_src;
-		
+		while (temp_src)
+		{
+			if (temp_searcher->target->number < temp_src->number)
+				temp_searcher->target = temp_src;
+			temp_src = temp_src->next;
+		}
+		temp_src = *target_src_stack;
 		while (temp_src)
 		{
 			if ((temp_searcher->number > temp_src->number)
@@ -217,6 +214,54 @@ void	ft_reset_costs(t_numbers_list **searcher_list, t_numbers_list **src_list)
 		temp_searcher = temp_searcher->next;
 	}
 }
+ //TODO: ft_find_cheapest_node
+//---------------------------------------------------------------//
+// looks through the entire list for the lowest price for shifting
+// RETURNS:
+// The cheapest node due to shifting_cost
+t_numbers_list *ft_find_cheapest_node(t_numbers_list **origin)
+{
+	t_numbers_list	*temp_list;
+	t_numbers_list	*cheapest_list;
+
+	temp_list = *origin;
+	cheapest_list = temp_list;
+	while (temp_list)
+	{
+		if (temp_list->shifiting_cost < cheapest_list->shifiting_cost)
+			cheapest_list = temp_list;
+		temp_list = temp_list->next;
+	}
+	return (cheapest_list);
+}
+
+//TODO: ft_shift_cheapest
+//---------------------------------------------------------------//
+// looks through the entire list for the lowest price for shifting
+// and shifts the node until it reached the top.
+// -Some times the sum of movements for both stack won't match with
+// cost, that means that we have to apply RR or RRR 
+void	ft_shift_cheapest(t_numbers_list **searcher_list, t_numbers_list **src_list)
+{
+	t_numbers_list *cheapest_node;
+	int searcher_commands;
+	int src_commands;
+
+	cheapest_node = ft_find_cheapest_node(searcher_list);
+	searcher_commands = count_to_make_top(searcher_list, cheapest_node);
+	src_commands = count_to_make_top(src_list, cheapest_node->target);
+	if (cheapest_node->shifiting_cost == 0)
+		return ;
+	if ((searcher_commands > 0 && src_commands > 0) || (searcher_commands < 0 && src_commands < 0) )
+	{
+		ft_shift_both_to_top(cheapest_node, searcher_list, cheapest_node->target, src_list, searcher_commands);
+		ft_shift_node_to_top(cheapest_node, searcher_list);
+		ft_shift_node_to_top(cheapest_node->target, src_list);
+	} else {
+		ft_shift_node_to_top(cheapest_node, searcher_list);
+		ft_shift_node_to_top(cheapest_node->target, src_list);
+	}
+}
 
  //TODO: ft_sort_with_turk
 //---------------------------------------------------------------//
@@ -267,87 +312,11 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 	// 	// ||||||||||||||||||||||||||||||
 		ft_reset_targets(origin_list_a, origin_list_b);
 		ft_reset_costs(origin_list_a, origin_list_b);
-		ft_debug_num_printer((*origin_list_a), "end_targeting_step");
+		ft_shift_cheapest(origin_list_a, origin_list_b);
 		ft_push(origin_list_a, origin_list_b);
-		//execute commands;
+		// ft_printf("pb\n");
+		// ft_debug_num_printer((*origin_list_b), "after target and cost execution");
 	}
-		// ft_debug_num_printer((*origin_list_b), "end_targeting_step");
+	ft_debug_num_printer((*origin_list_b), "end_targeting_step");
 
 }
-
- //TODO: ft_sort_list
-//---------------------------------------------------------------//
-// Main sorting function
-// Sorting algotrythm 
-// 1) looks for the smallest num on the A_stack
-// 1.2) depending on index of the node makes descision which
-// navigation command (RA, RRA) takes less times to move
-// the number on the top of the A_stack.
-// 2) push the smallest num on the B stack
-// 3) Each time it brings the node on the top of the A_stack
-// it uses function ft_is_sorted to check up if the rest of stack
-// is already sorted. 
-// 4) when it is only one element on the stack it pushes everything
-// back on top of the A_stack
-// 5) pushes all nodes from B_stack on top of the A_stack.
-//---------------------------------------------------------------//
-// void ft_sort_list(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
-// {
-// 	t_numbers_list	*smallest_node;
-// 	t_numbers_list	*temp_node;
-// 	int				smallest_node_indx;
-
-//NAVIGATION TEST
-	// if (*origin_list_a == NULL)
-	// 	return (-300);
-	// if ((*origin_list_a)->next == NULL)
-	// 	return (200);
-	// ft_rotate_stack(origin_list_a);
-	// ft_debug_num_printer(*origin_list_a, "after first RA");
-	// ft_push(origin_list_a, origin_list_b);
-	// ft_debug_num_printer(*origin_list_a, "A Stack after push_b");
-	// ft_push(origin_list_b, origin_list_a);
-	// ft_debug_num_printer(*origin_list_a, "A Stack after push_a");
-	// ft_reverse_rotate_stack(origin_list_a);
-	// ft_debug_num_printer(*origin_list_a, "after RRA");
-
-	// ft_is_sorted TEST
-	// ft_printf("is_sorted for stack a = %d\n", ft_is_sorted(origin_list_a));
-
-	// ft_find_smallest_node TEST
-	// ft_printf("the smallest node is with indx: %d\n", ft_find_smallest_node(origin_list_a));
-	
-	// ft_find_smallest_node TEST
-	// ft_printf("the smallest node is with indx: %d\n", ft_find_smallest_node(origin_list_a)->list_indx);
-
-	// ft_reset_nodes_indx TEST
-	// ft_push(origin_list_a, origin_list_b);
-	// ft_reset_nodes_indx(origin_list_a);
-	// ft_debug_num_printer(*origin_list_a, "stack A after push and indx reset");
-	// ft_printf("is_sorted for stack a = %d\n", ft_is_sorted(origin_list_a));
-//
-
-
-
-//
-// SORT by the smalllest aproach
-	// temp_node = *origin_list_a;
-	// while (ft_is_sorted(&temp_node) == -404)
-	// {
-	// 	smallest_node = ft_find_smallest_node(temp_node);
-	// 	ft_shift_node_to_top(smallest_node, origin_list_a);
-	// 	ft_push(origin_list_a, origin_list_b);
-	// 	ft_printf("pb\n");
-	// 	global_var++;
-	// 	ft_reset_nodes_indx(origin_list_a);
-	// 	temp_node = *origin_list_a;
-	// }
-
-	// while (*origin_list_b)
-	// {
-	// 	ft_push(origin_list_b, origin_list_a);
-	// 	global_var++;;
-	// 	ft_printf("pa\n");
-	// }
-	// ft_debug_num_printer(*origin_list_a, "test sort");
-// }

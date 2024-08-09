@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 22:17:01 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:55:14 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
 
 // Navlist_commands
 void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list);
-void	ft_rotate_stack(t_numbers_list **origin_list);
-void	ft_reverse_rotate_stack(t_numbers_list **origin_list);
-void	rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
-void	reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
+void	ft_rotate_stack(t_numbers_list **origin_list, char *print_status);
+void	ft_reverse_rotate_stack(t_numbers_list **origin_list, char *print_status);
+void	ft_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b, char *print_status);
+void	ft_reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b, char *print_status);
 
 
 // Sort_fts

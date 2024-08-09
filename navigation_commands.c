@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 21:13:40 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:14:12 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,50 +17,6 @@
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
-
-//TODO: ft_reverse_rotate_stack
-//---------------------------------------------------------------//
-// rra  Shift down all elements of stack a by 1.
-// The last element becomes the first one.
-//---------------------------------------------------------------//
-void	ft_reverse_rotate_stack(t_numbers_list **origin_list)
-{
-	t_numbers_list	*temp_head;
-	t_numbers_list	*last_node;
-
-	if (*origin_list == NULL || (*origin_list)->next == NULL)
-		return;
-	temp_head = *origin_list;
-	last_node = *origin_list;
-	while (last_node->next)
-		last_node = last_node->next;
-	last_node->prev->next = NULL;
-	last_node->prev = NULL;
-	last_node->next = temp_head;
-	temp_head->prev = last_node;
-	*origin_list = last_node;
-}
-
-//TODO: ft_rotate_stack
-//---------------------------------------------------------------//
-// ra (rotate a): Shift up all elements of stack a by 1.
-// The first element becomes the last one.
-//---------------------------------------------------------------//
-void	ft_rotate_stack(t_numbers_list **origin_list)
-{
-	t_numbers_list	*temp_head;
-
-	temp_head = *origin_list;
-	*origin_list = (*origin_list)->next;
-	(*origin_list)->prev = NULL;
-	temp_head->next = NULL;
-	while ((*origin_list)->next)
-	{
-		origin_list = &((*origin_list)->next);
-	}
-	(*origin_list)->next = temp_head;
-	temp_head->prev = *origin_list;
-}
 
 // ft_reset_nodes_indx
 //---------------------------------------------------------------//
@@ -82,6 +38,56 @@ static void	ft_reset_nodes_indx(t_numbers_list **list_head)
 		new_node_ind++;
 	}
 }
+
+//TODO: ft_rotate_stack
+//---------------------------------------------------------------//
+// ra (rotate a): Shift up all elements of stack a by 1.
+// The first element becomes the last one.
+//---------------------------------------------------------------//
+void	ft_rotate_stack(t_numbers_list **origin_list, char *print_status)
+{
+	t_numbers_list	*temp_head;
+
+	temp_head = *origin_list;
+	*origin_list = (*origin_list)->next;
+	(*origin_list)->prev = NULL;
+	temp_head->next = NULL;
+	while ((*origin_list)->next)
+	{
+		origin_list = &((*origin_list)->next);
+	}
+	(*origin_list)->next = temp_head;
+	temp_head->prev = *origin_list;
+	ft_reset_nodes_indx(origin_list);
+	ft_printf("%s", print_status);
+}
+
+
+//TODO: ft_reverse_rotate_stack
+//---------------------------------------------------------------//
+// rra  Shift down all elements of stack a by 1.
+// The last element becomes the first one.
+//---------------------------------------------------------------//
+void	ft_reverse_rotate_stack(t_numbers_list **origin_list, char *print_status)
+{
+	t_numbers_list	*temp_head;
+	t_numbers_list	*last_node;
+
+	if (*origin_list == NULL || (*origin_list)->next == NULL)
+		return;
+	temp_head = *origin_list;
+	last_node = *origin_list;
+	while (last_node->next)
+		last_node = last_node->next;
+	last_node->prev->next = NULL;
+	last_node->prev = NULL;
+	last_node->next = temp_head;
+	temp_head->prev = last_node;
+	*origin_list = last_node;
+	ft_reset_nodes_indx(origin_list);
+	ft_printf("%s", print_status);
+}
+
 
 //TODO: ft_push_b
 //---------------------------------------------------------------//
@@ -111,11 +117,14 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list)
 // ra (rotate a): Shift up all elements of stack A & stack B by 1.
 // The first element becomes the last one.
 //---------------------------------------------------------------//
-void	rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+
+void	ft_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b, char *print_status)
 {
-	ft_rotate_stack(origin_list_a);
-	ft_rotate_stack(origin_list_b);
-	ft_printf("rr");
+	ft_rotate_stack(origin_list_a, "");
+	ft_rotate_stack(origin_list_b, "");
+	ft_reset_nodes_indx(origin_list_a);
+	ft_reset_nodes_indx(origin_list_b);
+	ft_printf("%s", print_status);
 }
 
 // reverse_rotate_both
@@ -124,10 +133,12 @@ void	rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
 // rra  Shift down all elements of stack A & stack B by 1.
 // The last element becomes the first one.
 //---------------------------------------------------------------//
-void	reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+void	ft_reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b, char *print_status)
 {
-	ft_reverse_rotate_stack(origin_list_a);
-	ft_reverse_rotate_stack(origin_list_b);
-	ft_printf("rrr");
+	ft_reverse_rotate_stack(origin_list_a, "");
+	ft_reverse_rotate_stack(origin_list_b, "");
+	ft_reset_nodes_indx(origin_list_a);
+	ft_reset_nodes_indx(origin_list_b);
+	ft_printf("%s", print_status);
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
