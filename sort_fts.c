@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 21:15:57 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:24:33 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	ft_shift_node_to_top(t_numbers_list *node_to_shift, t_numbers_list **origin
 
 void	ft_shift_both_to_top(t_numbers_list *searcher_to_shift, t_numbers_list **searcher_origin, t_numbers_list *src_to_shift, t_numbers_list **src_origin, int shifting_type)
 {
-	while(searcher_to_shift->prev || src_to_shift->prev)
+	while(searcher_to_shift->prev && src_to_shift->prev)
 	{
 		if ( shifting_type > 0)
 		{
-			ft_rotate_both(searcher_origin, src_origin, "rr");
+			ft_rotate_both(searcher_origin, src_origin, "rr\n");
 			global_var++;
 		} else {
-			ft_reverse_rotate_both(searcher_origin, src_origin, "rrr");
+			ft_reverse_rotate_both(searcher_origin, src_origin, "rrr\n");
 			global_var++;
 		}
 	}
