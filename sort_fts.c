@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/08 20:19:39 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:07:04 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ int	ft_is_sorted(t_numbers_list **origin_list)
 // looks for the smallest node (the smallest num) in list
 // returns node with smallest number
 //---------------------------------------------------------------//
-t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list)
-{
-	t_numbers_list	*temp_node;
-	t_numbers_list	*smallest_node;
+// t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list)
+// {
+// 	t_numbers_list	*temp_node;
+// 	t_numbers_list	*smallest_node;
 
-	temp_node = origin_list;
-	smallest_node = origin_list;
-	while(temp_node->next)
-	{
-		if (smallest_node->number > temp_node->next->number)
-			smallest_node = temp_node->next;
-		temp_node = temp_node->next;
-	}
-	return (smallest_node);
-}
+// 	temp_node = origin_list;
+// 	smallest_node = origin_list;
+// 	while(temp_node->next)
+// 	{
+// 		if (smallest_node->number > temp_node->next->number)
+// 			smallest_node = temp_node->next;
+// 		temp_node = temp_node->next;
+// 	}
+// 	return (smallest_node);
+// }
 
 // ft_shift_node_to_top
 //---------------------------------------------------------------//
@@ -59,26 +59,26 @@ t_numbers_list	*ft_find_smallest_node(t_numbers_list *origin_list)
 // whould take less steps to shift the node on the top of the stack
 // choose between the RA and RRA
 //---------------------------------------------------------------//
-void	ft_shift_node_to_top(t_numbers_list *smallest_node, t_numbers_list **origin_list)
-{
-	int				mediana;
+// void	ft_shift_node_to_top(t_numbers_list *smallest_node, t_numbers_list **origin_list)
+// {
+// 	int				mediana;
 
-	mediana = ft_list_length(*origin_list) / 2;
-	while(smallest_node->prev)
-	{
-		if ( mediana >= smallest_node->list_indx)
-		{
-			ft_rotate_stack(origin_list);
-			ft_printf("ra\n");
-			global_var++;
-		} else {
-			ft_reverse_rotate_stack(origin_list);
-			ft_printf("rra\n");
-			global_var++;
-		}
-		// ft_debug_num_printer(*origin_list, "shift result");
-	}
-}
+// 	mediana = ft_list_length(*origin_list) / 2;
+// 	while(smallest_node->prev)
+// 	{
+// 		if ( mediana >= smallest_node->list_indx)
+// 		{
+// 			ft_rotate_stack(origin_list);
+// 			ft_printf("ra\n");
+// 			global_var++;
+// 		} else {
+// 			ft_reverse_rotate_stack(origin_list);
+// 			ft_printf("rra\n");
+// 			global_var++;
+// 		}
+// 		// ft_debug_num_printer(*origin_list, "shift result");
+// 	}
+// }
 
 
 // ft_new_target_is_closer
@@ -155,6 +155,8 @@ int	count_to_make_top(t_numbers_list **origin_list, t_numbers_list *for_node)
 	int	node_ind;
 	int list_len;
 
+	// ft_printf("for_node: %d, indx: %d\n", for_node->number, for_node->list_indx);
+	
 	if (*origin_list)
 		list_len = ft_list_length(*origin_list);
 	else
@@ -172,7 +174,7 @@ int	count_to_make_top(t_numbers_list **origin_list, t_numbers_list *for_node)
 		return (-(list_len - node_ind));
 }
 
-// TODO: ft_reset_costs
+// ft_reset_costs
 //---------------------------------------------------------------------//
 // counts and sets for each searcher_stack node how many moves does
 // each stack need to be able to connect searcher_stack with target
@@ -187,25 +189,30 @@ int	count_to_make_top(t_numbers_list **origin_list, t_numbers_list *for_node)
 void	ft_reset_costs(t_numbers_list **searcher_list, t_numbers_list **src_list)
 {
 	int result;
+	int searcher_commands;
+	int src_commands;
 	t_numbers_list	*temp_searcher;
 
 	temp_searcher = *searcher_list;
 	while  (temp_searcher)
 	{
-		int searcher_commands = count_to_make_top(searcher_list, temp_searcher);
-		int src_commands = count_to_make_top(src_list, temp_searcher->target);
-		ft_printf("searcher_commands: %d, src_commands ", searcher_commands, src_commands);
-		
-		if (src_commands > 0 && searcher_commands > 0)
+		searcher_commands = count_to_make_top(searcher_list, temp_searcher);
+		src_commands = count_to_make_top(src_list, temp_searcher->target);
+		if (src_commands > 0 && searcher_commands > 0 && (searcher_commands > src_commands || searcher_commands == src_commands))
 		{
-			result = ft_abs(src_commands - searcher_commands);
-		} else if (src_commands < 0 && searcher_commands < 0)
+			result = searcher_commands;
+		} else if (src_commands > 0 && searcher_commands > 0 && searcher_commands < src_commands)
 		{
-			result = ft_abs(ft_abs(src_commands) - ft_abs(searcher_commands));
+			result = src_commands;
+		} else if (src_commands < 0 && searcher_commands < 0 && (searcher_commands < src_commands || searcher_commands == src_commands))
+		{
+			result = ft_abs(searcher_commands);
+		} else if (src_commands < 0 && searcher_commands < 0 && searcher_commands > src_commands)
+		{
+			result = ft_abs(src_commands);
 		} else {
 			result = ft_abs(src_commands) + ft_abs(searcher_commands);
 		}
-		ft_printf("results: %d \n", result);
 		temp_searcher->shifiting_cost = result;
 		temp_searcher = temp_searcher->next;
 	}
