@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 21:05:13 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:36:05 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
 
 
 // Navlist_commands
+void	ft_swap(t_numbers_list **origin_list, char *print_status);
 void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list, char *print_status);
 void	ft_rotate_stack(t_numbers_list **origin_list, char *print_status);
 void	ft_reverse_rotate_stack(t_numbers_list **origin_list, char *print_status);
@@ -57,7 +58,8 @@ void	ft_reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **ori
 
 
 // Sort_fts
-int	ft_is_sorted(t_numbers_list **origin_list, bool ascending);
+void	ft_sort_three(t_numbers_list **origin_list_a);
+int		ft_is_sorted(t_numbers_list **origin_list, bool ascending);
 void 	ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 
 //Debug Fucntions

@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 21:24:33 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:24:33 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,25 @@ t_numbers_list *ft_find_max(t_numbers_list **list)
 	return (max_node);
 }
 
+// ft_find_min
+//-----------------------------------------------------------------//
+// looks through the entire list for the node with the biggest value
+t_numbers_list *ft_find_min(t_numbers_list **list)
+{
+	t_numbers_list *temp_node;
+	t_numbers_list *max_node;
+
+	temp_node = *list;
+	max_node = temp_node;
+	while (temp_node)
+	{
+		if (temp_node->number < max_node->number)
+			max_node = temp_node;
+		temp_node = temp_node->next;
+	}
+	return (max_node);
+}
+
  //TODO: ft_sort_with_turk
 //-----------------------------------------------------------------//
 // Sorting algotrythm 
@@ -352,4 +371,31 @@ void ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_l
 	while (ft_list_length(*origin_list_b))
 		ft_push(origin_list_b, origin_list_a, "pa\n");
 	// ft_debug_num_printer((*origin_list_a), "end_sorting_step");
+}
+
+
+// ft_sort_three
+// sorts only if list contains 3 elements
+//-----------------------------------------------------------------//
+// 1) find min max values
+// 2) if min.ind > max.ind => sa
+// 2.1) check ft_is_sorted
+// 3) ft_shift_to_top(min)
+//-----------------------------------------------------------------//
+void	ft_sort_three(t_numbers_list **origin_list_a)
+{
+	t_numbers_list	*max_node;
+	t_numbers_list	*min_node;
+	int				diff;
+
+	max_node = ft_find_max(origin_list_a);
+	min_node = ft_find_min(origin_list_a);
+	diff = ft_abs(min_node->list_indx - max_node->list_indx);
+	if (min_node->list_indx > max_node->list_indx && diff == 1)
+	{
+		ft_shift_node_to_top(min_node, origin_list_a, 'a');
+	} else {
+		ft_swap(origin_list_a, "sa\n");
+		ft_shift_node_to_top(min_node, origin_list_a, 'a');
+	}
 }

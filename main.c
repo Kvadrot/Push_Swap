@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 21:16:06 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:38:37 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		free(preprocessed_arguments[ind]);
 		ind++;
 	}
-	// ft_debug_num_printer(*list_a, "initial Stack");
 	free(preprocessed_arguments);
 	free(coonverted_arguments);
 	if (!list_a)
@@ -135,10 +134,9 @@ int main(int argc, char **argv)
 		ft_clean_up_list(list_a);
 		ft_clean_up_list(list_b);
 		return (0);
-	} else if (ft_list_length(list_a) <= 3)
+	} else if (ft_list_length(list_a) == 3)
 	{
-		//TODO: Sort_three
-		//sorting func for 3 elemenets only
+		ft_sort_three(&list_a);
 	} else {
 		ft_sort_with_turk(&list_a, &list_b);
 	}

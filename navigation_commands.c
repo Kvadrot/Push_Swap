@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/09 20:22:20 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:19:20 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 //	BASIC PUSH_SWAP COMMANDS 
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-
 
 // ft_reset_nodes_indx
 //---------------------------------------------------------------//
@@ -110,6 +108,7 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list, char *print_s
 	ft_reset_nodes_indx(from_list);
 	ft_reset_nodes_indx(to_list);
 	ft_printf(print_status);
+	global_var++;
 }
 
 // rotate_both
@@ -118,7 +117,6 @@ void	ft_push(t_numbers_list **from_list, t_numbers_list **to_list, char *print_s
 // ra (rotate a): Shift up all elements of stack A & stack B by 1.
 // The first element becomes the last one.
 //---------------------------------------------------------------//
-
 void	ft_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b, char *print_status)
 {
 	ft_rotate_stack(origin_list_a, "");
@@ -140,6 +138,24 @@ void	ft_reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **ori
 	ft_reverse_rotate_stack(origin_list_b, "");
 	ft_reset_nodes_indx(origin_list_a);
 	ft_reset_nodes_indx(origin_list_b);
+	ft_printf("%s", print_status);
+}
+
+void	ft_swap(t_numbers_list **origin_list, char *print_status)
+{
+	t_numbers_list	*first;
+	t_numbers_list	*second;
+
+	first = *origin_list;
+	second = first->next;
+	first->next = second->next;
+	if (second->next)
+		second->next->prev = first;
+	second->prev = first->prev;
+	second->next = first;
+	first->prev = second;
+	*origin_list = second;
+	ft_reset_nodes_indx(origin_list);
 	ft_printf("%s", print_status);
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
