@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 18:36:05 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:50:57 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_reverse_rotate_both(t_numbers_list **origin_list_a, t_numbers_list **ori
 
 // Sort_fts
 void	ft_sort_three(t_numbers_list **origin_list_a);
+void	ft_sort_five(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 int		ft_is_sorted(t_numbers_list **origin_list, bool ascending);
 void 	ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b);
 

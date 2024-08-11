@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 19:24:33 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:59:36 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,4 +398,25 @@ void	ft_sort_three(t_numbers_list **origin_list_a)
 		ft_swap(origin_list_a, "sa\n");
 		ft_shift_node_to_top(min_node, origin_list_a, 'a');
 	}
+}
+
+
+void	ft_sort_five(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b)
+{
+	t_numbers_list	*min_node;
+	int				diff;
+
+	while (ft_list_length(*origin_list_a) > 3)
+	{
+		min_node = ft_find_min(origin_list_a);
+		ft_shift_node_to_top(min_node, origin_list_a, 'a');		
+		ft_push(origin_list_a, origin_list_b, "pb\n");
+	}
+	if ((*origin_list_b)->number < (*origin_list_b)->next->number)
+		ft_swap(origin_list_b, "sb");
+	ft_sort_three(origin_list_a);
+	ft_push(origin_list_b, origin_list_a, "pa\n");
+	ft_push(origin_list_b, origin_list_a, "pa\n");
+	// ft_debug_num_printer((*origin_list_a), "end_sorting_step");
+
 }

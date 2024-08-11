@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:57:32 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 19:19:20 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:31:09 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,6 @@ void	ft_swap(t_numbers_list **origin_list, char *print_status)
 	*origin_list = second;
 	ft_reset_nodes_indx(origin_list);
 	ft_printf("%s", print_status);
+	global_var++;
 }
 // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

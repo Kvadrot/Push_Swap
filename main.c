@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 18:38:37 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:59:18 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ int main(int argc, char **argv)
 	} else if (ft_list_length(list_a) == 3)
 	{
 		ft_sort_three(&list_a);
+	} else if (ft_list_length(list_a) == 5)
+	{
+		ft_sort_five(&list_a, &list_b);
 	} else {
 		ft_sort_with_turk(&list_a, &list_b);
 	}
