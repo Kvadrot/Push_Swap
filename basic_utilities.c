@@ -6,11 +6,29 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/07 22:17:07 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:32:32 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+
+// ft_free_complex_array
+//---------------------------------------------------------------//
+// frees any array of type **type
+//---------------------------------------------------------------//
+void ft_free_complex_array(void **array)
+{
+	int	ind;
+
+	ind = 0;
+	while (array[ind])
+	{
+		free(array[ind]);
+		ind++;
+	}
+	free(array);
+}
 
 // ft_to_abs
 //---------------------------------------------------------------//
@@ -135,19 +153,4 @@ int	ft_list_length(t_numbers_list *list)
 	}
 	return (length);
 }
-
-// int main(int argc, char **argv)
-// {
-// 	int i;
-// 	char **test = ft_copy_complex_arr(argc, argv);
-// 	i = 0;
-// 	while (test[i])
-// 	{
-// 		ft_printf("%s\n", test[i]);
-// 		free(test[i]);
-// 		i++;
-// 	}
-// 	free(test);
-// 	return (0);
-// }
 

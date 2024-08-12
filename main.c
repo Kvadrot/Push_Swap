@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 21:59:18 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:37:48 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 //---------------------------------------------------------------//
 void	ft_handle_error(int err_code)
 {
-	ft_printf("======= %d =======\n", err_code);
 	ft_printf("Error\n");
 }
 
@@ -64,6 +63,7 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 	return (resulting_list); 
 }
 
+
 // ft_process_input
 //---------------------------------------------------------------//
 // func that validates input (splits if necessary) 
@@ -75,7 +75,7 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_list **list_b)
 {
 	int				processed_size;
-	int				*coonverted_arguments;
+	int				*converted_arguments;
 	char			**preprocessed_arguments;
 	int				ind;
 
@@ -83,22 +83,16 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		preprocessed_arguments = ft_split(argv[1], ' ');
 	else
 		preprocessed_arguments = ft_copy_complex_arr(argc, argv);
-	coonverted_arguments = ft_validate_and_convert(preprocessed_arguments, &processed_size);
-	if (!coonverted_arguments)
+	if (!preprocessed_arguments)
+		return (-500);
+	converted_arguments = ft_validate_and_convert(preprocessed_arguments, &processed_size);
+	if (!converted_arguments)
 	{
+		ft_free_complex_array((void **)(preprocessed_arguments));
 		ft_handle_error(-500);
 		return (-500);
 	}
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// TEST PART
-	// int i = 0;
-	// while (i < processed_size)
-	// {
-	// 	printf("successed convertion for: %d\n", coonverted_arguments[i]);
-	// 	i++;
-	// }
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-	*list_a = ft_init_linkedlist(coonverted_arguments, processed_size);
+	*list_a = ft_init_linkedlist(converted_arguments, processed_size);
 	ind = 0;
 	while (preprocessed_arguments[ind] != NULL)
 	{
@@ -106,7 +100,7 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 		ind++;
 	}
 	free(preprocessed_arguments);
-	free(coonverted_arguments);
+	free(converted_arguments);
 	if (!list_a)
 		return (-501);
 	return (ind);
@@ -145,6 +139,7 @@ int main(int argc, char **argv)
 	}
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
-	// ft_printf("ALL STEP %d\n", global_var);
+	ft_printf("ALL STEP %d\n", global_var);
+	// ft_debug_num_printer((list_a), "end_sorting_step");
 	return (0);
 }

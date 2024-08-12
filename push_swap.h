@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 21:50:57 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:27:59 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		*ft_validate_and_convert(char **arguments, int *processed_size);
 
 
 // Basic_utilities
+void ft_free_complex_array(void **array);
 int		ft_abs(int n);
 long long int ft_long_long_abs(long long int n);
 int		ft_list_length(t_numbers_list *list);

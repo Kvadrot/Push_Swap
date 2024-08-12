@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:20:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/11 21:59:36 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:05:17 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,6 +417,6 @@ void	ft_sort_five(t_numbers_list **origin_list_a, t_numbers_list **origin_list_b
 	ft_sort_three(origin_list_a);
 	ft_push(origin_list_b, origin_list_a, "pa\n");
 	ft_push(origin_list_b, origin_list_a, "pa\n");
-	// ft_debug_num_printer((*origin_list_a), "end_sorting_step");
+	ft_debug_num_printer((*origin_list_a), "end_sorting_step");
 
 }

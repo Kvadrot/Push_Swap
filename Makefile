@@ -9,7 +9,7 @@ SRCS = main.c basic_utilities.c validation.c debug_utilities.c navigation_comman
 OBJS = $(SRCS:.c=.o)
 
 # Program Name
-NAME = push_swap.out
+NAME = push_swap
 
 # Libft src
 LIBFT = ./lib_ft/libft.a

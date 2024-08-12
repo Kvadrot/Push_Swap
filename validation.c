@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:37:53 by itykhono          #+#    #+#             */
-/*   Updated: 2024/07/30 18:08:10 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:28:43 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,14 @@ int	*ft_validate_and_convert(char **arguments, int *processed_size)
 
 	while (arguments[i])
 	{
-		result[i] = atoi(arguments[i]);
+		result[i] = ft_atoi(arguments[i]);
 		i++;
 	}
 	*processed_size = i;
 	if (ft_is_valid_duplicates(result, i) == false)
+	{
+		free(result);
 		return (NULL);
+	}
 	return (result);
 }
