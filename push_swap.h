@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:12:16 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/12 13:27:59 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:29:19 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include "./lib_ft/libft.h"
 # include "./lib_ft_printf/ft_printf.h"
 
+
+extern int global_var;
+
 typedef struct t_numbers_list {
 	struct t_numbers_list	*next;
 	struct t_numbers_list	*prev;
@@ -30,8 +33,6 @@ typedef struct t_numbers_list {
 	int						reach_target_cost;
 }	t_numbers_list;
 
-extern int global_var;
-
 // Validation_fts
 bool	ft_is_valid_duplicates(int *numbers, int numbers_amount);
 bool	ft_is_valid_limts(char **args);
@@ -39,14 +40,20 @@ bool	ft_is_valid_symbols(char **args);
 int		*ft_validate_and_convert(char **arguments, int *processed_size);
 
 
-// Basic_utilities
-void ft_free_complex_array(void **array);
-int		ft_abs(int n);
-long long int ft_long_long_abs(long long int n);
+// List_utilities
 int		ft_list_length(t_numbers_list *list);
 void	ft_clean_up_list(t_numbers_list *list);
+void	ft_reset_nodes_indx(t_numbers_list **list_head);
+
+// Array_utilities
+void ft_free_complex_array(void **array);
 int		ft_get_size_of_super_arr(char **super_arr);
 char	**ft_copy_complex_arr(int argc, char **arr_of_arr);
+
+
+// Basic_utilities
+int		ft_abs(int n);
+long long int ft_long_long_abs(long long int n);
 
 
 // Navlist_commands
@@ -67,7 +74,4 @@ void 	ft_sort_with_turk(t_numbers_list **origin_list_a, t_numbers_list **origin_
 //Debug Fucntions
 void	ft_debug_num_printer(t_numbers_list *list, char *separator_text);
 
-
-
 #endif
-
