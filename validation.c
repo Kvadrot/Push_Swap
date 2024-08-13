@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 18:37:53 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/12 13:28:43 by itykhono         ###   ########.fr       */
+/*   Created: 2024/08/12 19:33:23 by itykhono          #+#    #+#             */
+/*   Updated: 2024/08/13 12:59:49 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 // ft_is_valid_duplicates()
 //---------------------------------------------------------------//
@@ -32,8 +32,33 @@ bool	ft_is_valid_duplicates(int *numbers, int numbers_amount)
 				return (false);
 			ind++;
 		}
-		// ft_printf("there are no duplicates for %d \n", numbers[i]);
 		i++;
+	}
+	return (true);
+}
+
+static	bool	ft_validate_plus_minus(char **args, int i)
+{
+	char	*max_int;
+	char	*min_int;
+
+	max_int = "2147483647";
+	min_int = "-2147483648";
+	if (args[i][0] == '-')
+	{
+		if (ft_strlen(args[i]) > ft_strlen(min_int))
+			return (false);
+		else if (ft_strlen(min_int) == ft_strlen(args[i])
+			&& ft_memcmp(min_int, args[i], ft_strlen(min_int)) < 0)
+			return (false);
+	}
+	else if (args[i][0] == '+')
+	{
+		if (ft_strlen(args[i]) > ft_strlen(max_int) + 1)
+			return (false);
+		else if (ft_strlen(max_int) + 1 == ft_strlen(args[i])
+			&& ft_memcmp(max_int, args[i], ft_strlen(max_int) + 1) < 0)
+			return (false);
 	}
 	return (true);
 }
@@ -52,28 +77,15 @@ bool	ft_is_valid_limts(char **args)
 	i = 0;
 	max_int = "2147483647";
 	min_int = "-2147483648";
-
 	while (args[i])
 	{
-		if (args[i][0] == '-')
-		{
-			if (ft_strlen(args[i]) > ft_strlen(min_int))
-				return (false);
-			else if (ft_strlen(min_int) == ft_strlen(args[i]) && ft_memcmp(min_int, args[i], ft_strlen(min_int)) < 0)
-				return (false);
-		}
-		else if (args[i][0] == '+')
-		{
-			if (ft_strlen(args[i]) > ft_strlen(max_int) + 1)
-				return (false);
-			else if (ft_strlen(max_int) + 1 == ft_strlen(args[i]) && ft_memcmp(max_int, args[i], ft_strlen(max_int) + 1) < 0)
-				return (false);
-		} 
+		if (ft_validate_plus_minus(args, i) == false)
+			return (false);
 		else if (ft_strlen(args[i]) > ft_strlen(max_int))
-				return (false);
-		else if (ft_strlen(max_int) == ft_strlen(args[i]) && ft_memcmp(max_int, args[i], ft_strlen(max_int)) < 0)
-				return (false);
-		// ft_printf("limit requirments are met for: %s\n", args[i]);
+			return (false);
+		else if (ft_strlen(max_int) == ft_strlen(args[i]) && ft_memcmp(max_int,
+				args[i], ft_strlen(max_int)) < 0)
+			return (false);
 		i++;
 	}
 	return (true);
@@ -93,7 +105,8 @@ bool	ft_is_valid_symbols(char **args)
 	sym_ind = 0;
 	while (args[ind] != NULL)
 	{
-		if ((args[ind][sym_ind] == '-' || args[ind][sym_ind] == '+') && sym_ind == 0)
+		if ((args[ind][sym_ind] == '-' || args[ind][sym_ind] == '+')
+			&& sym_ind == 0)
 			sym_ind++;
 		while (args[ind][sym_ind] != '\0')
 		{
@@ -106,7 +119,6 @@ bool	ft_is_valid_symbols(char **args)
 	}
 	return (true);
 }
-
 
 // ft_validate()
 //---------------------------------------------------------------//
@@ -128,10 +140,9 @@ int	*ft_validate_and_convert(char **arguments, int *processed_size)
 		return (NULL);
 	if (ft_is_valid_limts(arguments) == false)
 		return (NULL);
-	result = (int *)malloc(sizeof(int) * ft_get_size_of_super_arr(arguments) + 1);
+	result = (int *)malloc(sizeof(int) * ft_len_super_arr(arguments) + 1);
 	if (!result)
 		return (NULL);
-
 	while (arguments[i])
 	{
 		result[i] = ft_atoi(arguments[i]);

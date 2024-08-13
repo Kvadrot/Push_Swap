@@ -2,10 +2,12 @@
 CC = gcc
 
 # Compiler flags
+WARNFLAGS = -Wall -Wextra -Werror
 CFLAGS = -I./lib_ft -I./lib_ft_printf
 LDFLAGS = -L./lib_ft -l:libft.a -L./lib_ft_printf -lftprintf
+
 # Default sources
-SRCS = main.c basic_utilities.c validation.c debug_utilities.c navigation_commands.c sort_fts.c list_utilities.c array_utilities.c
+SRCS = main.c basic_utilities.c validation.c navigation_commands.c navigation_both.c sort_fts.c list_utilities.c array_utilities.c sorting_utilities.c sort_small_list.c shifter_fts.c
 OBJS = $(SRCS:.c=.o)
 
 # Program Name
@@ -21,7 +23,7 @@ FTPRINTF = ./lib_ft_printf/libftprintf.a
 all: $(LIBFT) $(FTPRINTF) $(GNL) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
+	$(CC) $(WARNFLAGS) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 # Make lib_ft
 $(LIBFT):
@@ -39,6 +41,7 @@ clean:
 
 # Full clean up
 fclean: clean
+	rm $(NAME)
 	make -C lib_ft fclean
 	make -C lib_ft_printf fclean
 

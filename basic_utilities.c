@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:46:59 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/12 14:18:39 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:36:42 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 // ft_to_abs
 //---------------------------------------------------------------//
-// converts any int into long long int and multyplies by -1 if 
+// converts any int into long long int and multyplies by -1 if
 // num < 0
 //---------------------------------------------------------------//
-long long int ft_long_long_abs(long long int n)
+long long int	ft_long_long_abs(long long int n)
 {
 	long long int	new_num;
 
@@ -41,4 +41,12 @@ int	ft_abs(int n)
 	return (new_num);
 }
 
-
+// ft_put_error
+//---------------------------------------------------------------//
+// pritns given error text + returns errorID
+//---------------------------------------------------------------//
+int	ft_put_error(int err_status, char *err_text)
+{
+	ft_printf(err_text);
+	return (err_status);
+}

@@ -6,51 +6,73 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:06:12 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/12 14:13:12 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:50:18 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void	ft_node_int(int *i, int *numbers, t_nd **head, t_nd **temp)
+{
+	(*temp)->number = numbers[*i];
+	(*temp)->list_indx = *i;
+	(*temp)->prev = *head;
+	(*temp)->next = NULL;
+	(*head)->next = *temp;
+	*head = *temp;
+	(*i)++;
+}
+
 // ft_init_linkedlist
 //---------------------------------------------------------------//
 //
 //---------------------------------------------------------------//
-t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
+t_nd	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 {
-	t_numbers_list	*head_list;
-	t_numbers_list	*temp_list;
-	t_numbers_list	*resulting_list;
-	int				i;
+	t_nd	*head_list;
+	t_nd	*temp_list;
+	t_nd	*resulting_list;
+	int		i;
 
-	if (!converted_numbers || arr_size <= 0)
-		return (NULL);
-	head_list = (t_numbers_list *)malloc(sizeof(t_numbers_list));
+	head_list = (t_nd *)malloc(sizeof(t_nd));
 	if (!head_list)
 		return (NULL);
 	head_list->number = converted_numbers[0];
-	head_list->list_indx = 0;
 	head_list->prev = NULL;
 	resulting_list = head_list;
 	i = 1;
 	while (i < arr_size)
 	{
-		temp_list = (t_numbers_list *)malloc(sizeof(t_numbers_list));
+		temp_list = (t_nd *)malloc(sizeof(t_nd));
 		if (!temp_list)
 		{
 			ft_clean_up_list(resulting_list);
 			return (NULL);
 		}
-		temp_list->number = converted_numbers[i];
-		temp_list->list_indx = i;
-		temp_list->prev = head_list;
-		temp_list->next = NULL;
-		head_list->next = temp_list;
-		head_list = temp_list;
-		i++;
+		ft_node_int(&i, converted_numbers, &head_list, &temp_list);
 	}
+	ft_reset_t_nds_indx(&resulting_list);
 	head_list->next = NULL;
 	return (resulting_list);
+}
+
+static int	ft_process_input_helper(char **raw_args, int *processed_size,
+		t_nd **list_a)
+{
+	int	*converted_args;
+
+	converted_args = ft_validate_and_convert(raw_args, processed_size);
+	if (!converted_args)
+	{
+		ft_free_complex_array((void **)(raw_args));
+		return (ft_put_error(-501, "Error\n"));
+	}
+	*list_a = ft_init_linkedlist(converted_args, *processed_size);
+	ft_free_complex_array((void **)(raw_args));
+	free(converted_args);
+	if (!list_a)
+		return (ft_put_error(-502, "Error\n"));
+	return (200);
 }
 
 // ft_process_input
@@ -58,42 +80,26 @@ t_numbers_list	*ft_init_linkedlist(int *converted_numbers, int arr_size)
 // func that validates input (splits if necessary)
 // all in all it might create numbers_linked_list
 // it should return:
-// OK: amount of nodes inside the List
+// OK: amount of t_nds inside the List
 // KO: -5**
 //---------------------------------------------------------------//
-int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_list **list_b)
+static int	ft_process_input(int argc, char **argv, t_nd **list_a)
 {
 	int		processed_size;
-	int		*converted_arguments;
-	char	**preprocessed_arguments;
-	int		ind;
+	char	**raw_args;
 
 	if (argc == 2)
-		preprocessed_arguments = ft_split(argv[1], ' ');
+		raw_args = ft_split(argv[1], ' ');
 	else
-		preprocessed_arguments = ft_copy_complex_arr(argc, argv);
-	if (!preprocessed_arguments)
-		return (-500);
-	converted_arguments = ft_validate_and_convert(preprocessed_arguments,
-			&processed_size);
-	if (!converted_arguments)
+		raw_args = ft_copy_complex_arr(argc, argv);
+	if (!raw_args)
+		return (ft_put_error(-501, "Error\n"));
+	else if (ft_len_super_arr(raw_args) == 0)
 	{
-		ft_free_complex_array((void **)(preprocessed_arguments));
-		ft_printf("Error\n");
-		return (-500);
+		ft_free_complex_array((void **)(raw_args));
+		return (404);
 	}
-	*list_a = ft_init_linkedlist(converted_arguments, processed_size);
-	ind = 0;
-	while (preprocessed_arguments[ind] != NULL)
-	{
-		free(preprocessed_arguments[ind]);
-		ind++;
-	}
-	free(preprocessed_arguments);
-	free(converted_arguments);
-	if (!list_a)
-		return (-501);
-	return (ind);
+	return (ft_process_input_helper(raw_args, &processed_size, list_a));
 }
 
 // main
@@ -104,34 +110,29 @@ int	ft_process_input(int argc, char **argv, t_numbers_list **list_a, t_numbers_l
 //---------------------------------------------------------------//
 int	main(int argc, char **argv)
 {
-	t_numbers_list	*list_a;
-	t_numbers_list	*list_b;
+	t_nd	*list_a;
+	t_nd	*list_b;
+	int		processed_status;
 
 	list_a = NULL;
 	list_b = NULL;
-	if (ft_process_input(argc, argv, &list_a, &list_b) < 0)
+	processed_status = ft_process_input(argc, argv, &list_a);
+	if (processed_status < 0)
 		return (1);
-	if (ft_is_sorted(&list_a, true) == 200)
+	else if (processed_status == 404)
+		return (0);
+	else if (ft_is_sorted(&list_a, true) == 200)
 	{
 		ft_clean_up_list(list_a);
-		ft_clean_up_list(list_b);
 		return (0);
 	}
 	else if (ft_list_length(list_a) == 3)
-	{
 		ft_sort_three(&list_a);
-	}
 	else if (ft_list_length(list_a) == 5)
-	{
 		ft_sort_five(&list_a, &list_b);
-	}
 	else
-	{
 		ft_sort_with_turk(&list_a, &list_b);
-	}
 	ft_clean_up_list(list_a);
 	ft_clean_up_list(list_b);
-	ft_printf("ALL STEP %d\n", global_var);
-	// ft_debug_num_printer((list_a), "end_sorting_step");
 	return (0);
 }

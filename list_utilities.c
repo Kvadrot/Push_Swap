@@ -6,7 +6,7 @@
 /*   By: itykhono <itykhono@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 14:16:24 by itykhono          #+#    #+#             */
-/*   Updated: 2024/08/12 14:26:03 by itykhono         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:17:24 by itykhono         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,28 @@
 // Examlpe:
 // 0 <- 10
 //---------------------------------------------------------------//
-void	ft_clean_up_list(t_numbers_list *list)
+void	ft_clean_up_list(t_nd *list)
 {
-    t_numbers_list	*temp;
+	t_nd	*temp;
+	t_nd	*next_node;
 
-	while (list)
+	temp = list;
+	while (temp)
 	{
-		// ft_printf(" = %d is free\n", list->number);
-		temp = list->next;
-		free(list);
-		list = temp;
+		next_node = temp->next;
+		free(temp);
+		temp = next_node;
 	}
 }
 
 // ft_list_length()
 //---------------------------------------------------------------//
-// returns amount of nodes inside of given List
+// returns amount of t_nds inside of given List
 //---------------------------------------------------------------//
-int	ft_list_length(t_numbers_list *list)
+int	ft_list_length(t_nd *list)
 {
-    t_numbers_list	*temp;
-	int				length;
+	t_nd	*temp;
+	int		length;
 
 	if (!list)
 		return (0);
@@ -53,23 +54,63 @@ int	ft_list_length(t_numbers_list *list)
 	return (length);
 }
 
-// ft_reset_nodes_indx
+// ft_reset_t_nds_indx
 //---------------------------------------------------------------//
-// resets the indexex for each node inside the node.
+// resets the indexex for each t_nd inside the t_nd.
 //---------------------------------------------------------------//
-void	ft_reset_nodes_indx(t_numbers_list **list_head)
+void	ft_reset_t_nds_indx(t_nd **list_head)
 {
-	t_numbers_list	*temp_node;
-	int				new_node_ind;
+	t_nd	*temp_t_nd;
+	int		new_t_nd_ind;
 
 	if (!list_head)
 		return ;
-	new_node_ind = 0;
-	temp_node = *list_head;
-	while (temp_node)
+	new_t_nd_ind = 0;
+	temp_t_nd = *list_head;
+	while (temp_t_nd)
 	{
-		temp_node->list_indx = new_node_ind;
-		temp_node = temp_node->next;
-		new_node_ind++;
+		temp_t_nd->list_indx = new_t_nd_ind;
+		temp_t_nd = temp_t_nd->next;
+		new_t_nd_ind++;
 	}
+}
+
+// ft_find_max
+//-----------------------------------------------------------------//
+// looks through the entire list for the t_nd with the biggest value
+//-----------------------------------------------------------------//
+t_nd	*ft_find_max(t_nd **list)
+{
+	t_nd	*temp_t_nd;
+	t_nd	*max_t_nd;
+
+	temp_t_nd = *list;
+	max_t_nd = temp_t_nd;
+	while (temp_t_nd)
+	{
+		if (temp_t_nd->number > max_t_nd->number)
+			max_t_nd = temp_t_nd;
+		temp_t_nd = temp_t_nd->next;
+	}
+	return (max_t_nd);
+}
+
+// ft_find_min
+//-----------------------------------------------------------------//
+// looks through the entire list for the t_nd with the biggest value
+//-----------------------------------------------------------------//
+t_nd	*ft_find_min(t_nd **list)
+{
+	t_nd	*temp_t_nd;
+	t_nd	*max_t_nd;
+
+	temp_t_nd = *list;
+	max_t_nd = temp_t_nd;
+	while (temp_t_nd)
+	{
+		if (temp_t_nd->number < max_t_nd->number)
+			max_t_nd = temp_t_nd;
+		temp_t_nd = temp_t_nd->next;
+	}
+	return (max_t_nd);
 }
